@@ -17,6 +17,9 @@
 		1F9CC07B1DA25F530090071A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC07A1DA25F530090071A /* User.swift */; };
 		1F9CC07D1DA261AF0090071A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC07C1DA261AF0090071A /* BaseViewController.swift */; };
 		1F9CC0801DA273910090071A /* AccountDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC07F1DA273910090071A /* AccountDataManager.swift */; };
+		1F9CC0831DA281480090071A /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0821DA281480090071A /* UIView.swift */; };
+		1F9CC0851DA28B7F0090071A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0841DA28B7F0090071A /* Constants.swift */; };
+		1F9CC0871DA28B970090071A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0861DA28B970090071A /* UIColor.swift */; };
 		3821BC48B8C082023807C44F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB918D7423B79539B71EE84 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +36,9 @@
 		1F9CC07A1DA25F530090071A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1F9CC07C1DA261AF0090071A /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		1F9CC07F1DA273910090071A /* AccountDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDataManager.swift; sourceTree = "<group>"; };
+		1F9CC0821DA281480090071A /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		1F9CC0841DA28B7F0090071A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1F9CC0861DA28B970090071A /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		546CD944586DC46B15B1D12E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		585531AE289A3BF8826ED5EE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6DB918D7423B79539B71EE84 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +81,7 @@
 				1F9CC05A1DA256BE0090071A /* Assets.xcassets */,
 				1F9CC05F1DA256BE0090071A /* Info.plist */,
 				1F9CC0661DA257A80090071A /* Misc */,
+				1F9CC0811DA280F90090071A /* Extensions */,
 				1F9CC07E1DA2736B0090071A /* Managers */,
 				1F9CC0671DA257BD0090071A /* Models */,
 				1F9CC0651DA2577C0090071A /* ViewControllers */,
@@ -98,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				1F9CC06A1DA259100090071A /* MainAssembly.swift */,
+				1F9CC0841DA28B7F0090071A /* Constants.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -148,6 +156,15 @@
 				1F9CC07F1DA273910090071A /* AccountDataManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		1F9CC0811DA280F90090071A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1F9CC0821DA281480090071A /* UIView.swift */,
+				1F9CC0861DA28B970090071A /* UIColor.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		D4CA25F3561242DFEB780153 /* Frameworks */ = {
@@ -288,6 +305,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9CC0831DA281480090071A /* UIView.swift in Sources */,
+				1F9CC0871DA28B970090071A /* UIColor.swift in Sources */,
+				1F9CC0851DA28B7F0090071A /* Constants.swift in Sources */,
 				1F9CC0801DA273910090071A /* AccountDataManager.swift in Sources */,
 				1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */,
 				1F9CC0771DA25DF20090071A /* LoginPresenterImp.swift in Sources */,
