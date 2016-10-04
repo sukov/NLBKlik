@@ -10,10 +10,14 @@ import Foundation
 
 class LoginPresenterImp: LoginPresenter {
 	weak private var view: LoginView?
+	let userDefaults = NSUserDefaults.standardUserDefaults()
 
 	func attachView(view: LoginView) {
 		if (self.view == nil) {
 			self.view = view
+			if let user = loadUser() {
+				view.setContent(user)
+			}
 		}
 	}
 
@@ -29,9 +33,24 @@ class LoginPresenterImp: LoginPresenter {
 
 		if (username.characters.count > 3 && password.characters.count > 3) {
 			view?.animate(shouldAnimate: true)
-
+			if (userData[UserDataKeys.rememberMe] as? Bool == true) {
+				if let user = User(userData: userData) {
+					saveUser(user)
+				}
+			}
 		} else {
 			view?.showErrorAlert()
 		}
+	}
+
+	private func saveUser(user: User) {
+		let encodedData = NSKeyedArchiver.archivedDataWithRootObject(user)
+		userDefaults.setObject(encodedData, forKey: "user")
+		userDefaults.synchronize()
+	}
+
+	private func loadUser() -> User? {
+		let decoded = userDefaults.objectForKey("user") as? NSData
+		return (decoded != nil) ? (NSKeyedUnarchiver.unarchiveObjectWithData(decoded!) as? User) : nil
 	}
 }
