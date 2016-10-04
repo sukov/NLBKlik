@@ -97,6 +97,9 @@ class LoginController: BaseViewController, LoginView {
 		rememberMeSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
 		rememberMeSwitch.onTintColor = UIColor.customPurple()
 		rememberMeSwitch.on = true
+		rememberMeSwitch.addTarget(self,
+			action: #selector(rememberMeSwitchChangedValue(_:)),
+			forControlEvents: .ValueChanged)
 
 		rememberMeLabel = UILabel()
 		rememberMeLabel.font = rememberMeLabel.font.fontWithSize(14)
@@ -198,6 +201,14 @@ class LoginController: BaseViewController, LoginView {
 		}
 	}
 
+	func rememberMeSwitchChangedValue(sender: UISwitch) {
+		if (sender.on) {
+			autoLoginSwitch.enabled = true
+		} else {
+			autoLoginSwitch.enabled = false
+		}
+	}
+
 	func dismissKeyboard() {
 		usernameTextField.resignFirstResponder()
 		passwordTextField.resignFirstResponder()
@@ -208,15 +219,18 @@ class LoginController: BaseViewController, LoginView {
 		userData[UserDataKeys.username] = usernameTextField.text
 		userData[UserDataKeys.password] = passwordTextField.text
 		userData[UserDataKeys.rememberMe] = rememberMeSwitch.on
-		userData[UserDataKeys.autoLogin] = autoLoginSwitch.on
+		userData[UserDataKeys.autoLogin] = (rememberMeSwitch.on == true) ? autoLoginSwitch.on : false
 		presenter.login(userData)
 	}
 
-	func setContent(userData: [String: AnyObject]) {
-		usernameTextField.text = userData[UserDataKeys.username] as? String ?? ""
-		passwordTextField.text = userData[UserDataKeys.password] as? String ?? ""
-		rememberMeSwitch.on = userData[UserDataKeys.rememberMe] as? Bool ?? true
-		autoLoginSwitch.on = userData[UserDataKeys.autoLogin] as? Bool ?? false
+	func setContent(user: User) {
+		usernameTextField.text = user.username
+		passwordTextField.text = user.password
+		rememberMeSwitch.on = true
+		autoLoginSwitch.on = user.autoLogin
+		if (autoLoginSwitch.on) {
+			loginButtonTapped()
+		}
 	}
 
 	func animate(shouldAnimate animate: Bool) {

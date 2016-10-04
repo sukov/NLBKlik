@@ -9,7 +9,7 @@
 import Foundation
 
 @objc protocol LoginView {
-	func setContent(userData: [String: AnyObject])
+	func setContent(user: User)
 	func animate(shouldAnimate animate: Bool)
 	func showNextScreen()
 	func showErrorAlert()
