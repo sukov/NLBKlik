@@ -11,9 +11,11 @@ import Foundation
 class User {
 	private var username: String
 	private var password: String
+	private var autoLogin: Bool
 
-	init(username: String, password: String) {
+	init(username: String, password: String, autoLogin: Bool) {
 		self.username = username
 		self.password = password
+		self.autoLogin = autoLogin
 	}
 }
