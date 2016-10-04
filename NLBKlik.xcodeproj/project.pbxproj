@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F166F591DA3BFBB00D7CEAE /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F166F581DA3BFBB00D7CEAE /* UserManager.swift */; };
+		1F166F5C1DA3C07600D7CEAE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F166F5B1DA3C07600D7CEAE /* NetworkManager.swift */; };
 		1F9CC0541DA256BE0090071A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0531DA256BE0090071A /* AppDelegate.swift */; };
 		1F9CC05B1DA256BE0090071A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F9CC05A1DA256BE0090071A /* Assets.xcassets */; };
 		1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC06A1DA259100090071A /* MainAssembly.swift */; };
@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F166F581DA3BFBB00D7CEAE /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		1F166F5B1DA3C07600D7CEAE /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1F9CC0501DA256BE0090071A /* NLBKlik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NLBKlik.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9CC0531DA256BE0090071A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F9CC05A1DA256BE0090071A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +56,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F166F5A1DA3C06E00D7CEAE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1F166F5B1DA3C07600D7CEAE /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		1F9CC0471DA256BE0090071A = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +88,7 @@
 				1F9CC0531DA256BE0090071A /* AppDelegate.swift */,
 				1F9CC05A1DA256BE0090071A /* Assets.xcassets */,
 				1F9CC05F1DA256BE0090071A /* Info.plist */,
+				1F166F5A1DA3C06E00D7CEAE /* Network */,
 				1F9CC0661DA257A80090071A /* Misc */,
 				1F9CC0811DA280F90090071A /* Extensions */,
 				1F9CC07E1DA2736B0090071A /* Managers */,
@@ -153,7 +162,6 @@
 		1F9CC07E1DA2736B0090071A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				1F166F581DA3BFBB00D7CEAE /* UserManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -308,7 +316,7 @@
 				1F9CC0831DA281480090071A /* UIView.swift in Sources */,
 				1F9CC0871DA28B970090071A /* UIColor.swift in Sources */,
 				1F9CC0851DA28B7F0090071A /* Constants.swift in Sources */,
-				1F166F591DA3BFBB00D7CEAE /* UserManager.swift in Sources */,
+				1F166F5C1DA3C07600D7CEAE /* NetworkManager.swift in Sources */,
 				1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */,
 				1F9CC0771DA25DF20090071A /* LoginPresenterImp.swift in Sources */,
 				1F9CC0711DA25DCC0090071A /* LoginController.swift in Sources */,
