@@ -11,6 +11,9 @@ import SnapKit
 
 class LoginController: BaseViewController, LoginView {
 	private var presenter: LoginPresenter
+	private var scrollView: UIScrollView!
+	private var contentView: UIView!
+	private var activeField: UITextField?
 	private var logoImageView: UIImageView!
 	private var usernameTextField: UITextField!
 	private var passwordTextField: UITextField!
@@ -19,14 +22,21 @@ class LoginController: BaseViewController, LoginView {
 	private var rememberMeSwitch: UISwitch!
 	private var autoLoginLabel: UILabel!
 	private var autoLoginSwitch: UISwitch!
+	private var overlayView: UIView!
+	private var activityView: UIActivityIndicatorView!
 
 	init(presenter: LoginPresenter) {
 		self.presenter = presenter
 		super.init()
+		registerForKeyboardNotifications()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	deinit {
+		deregisterFromKeyboardNotifications()
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -39,15 +49,28 @@ class LoginController: BaseViewController, LoginView {
 		presenter.detachView(self)
 	}
 
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		scrollView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.width)
+	}
+
 	override func setupViews() {
 		view.backgroundColor = UIColor.whiteColor()
 		view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+
+		scrollView = UIScrollView()
+		scrollView.scrollEnabled = false
+
+		contentView = UIView()
 
 		logoImageView = UIImageView(image: UIImage(named: "NLBLogo"))
 		logoImageView.contentMode = UIViewContentMode.ScaleAspectFit
 
 		usernameTextField = UITextField()
+		usernameTextField.tag = 0
 		usernameTextField.font = UIFont.systemFontOfSize(20)
+		usernameTextField.autocapitalizationType = UITextAutocapitalizationType.None
+		usernameTextField.returnKeyType = UIReturnKeyType.Next
 		usernameTextField.placeholder = "Username"
 		usernameTextField.leftView = UIImageView(image: UIImage(named: "User"))
 		usernameTextField.leftViewMode = UITextFieldViewMode.Always
@@ -55,7 +78,9 @@ class LoginController: BaseViewController, LoginView {
 		usernameTextField.delegate = self
 
 		passwordTextField = UITextField()
+		passwordTextField.tag = 1
 		passwordTextField.font = UIFont.systemFontOfSize(20)
+		passwordTextField.returnKeyType = UIReturnKeyType.Go
 		passwordTextField.placeholder = "Password"
 		passwordTextField.secureTextEntry = true
 		passwordTextField.leftView = UIImageView(image: UIImage(named: "Lock"))
@@ -64,12 +89,14 @@ class LoginController: BaseViewController, LoginView {
 
 		loginButton = UIButton()
 		loginButton.setTitle("Log In", forState: .Normal)
-		loginButton.backgroundColor = UIColor.customPurple()
 		loginButton.layer.cornerRadius = 5
+		loginButton.backgroundColor = UIColor.customPurple()
+		loginButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
 
 		rememberMeSwitch = UISwitch()
 		rememberMeSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
-		rememberMeSwitch.onTintColor = UIColor.blueColor().colorWithAlphaComponent(0.8)
+		rememberMeSwitch.onTintColor = UIColor.customPurple()
+		rememberMeSwitch.on = true
 
 		rememberMeLabel = UILabel()
 		rememberMeLabel.font = rememberMeLabel.font.fontWithSize(14)
@@ -78,21 +105,33 @@ class LoginController: BaseViewController, LoginView {
 
 		autoLoginSwitch = UISwitch()
 		autoLoginSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
-		autoLoginSwitch.onTintColor = UIColor.blueColor().colorWithAlphaComponent(0.8)
+		autoLoginSwitch.onTintColor = UIColor.customPurple()
 
 		autoLoginLabel = UILabel()
 		autoLoginLabel.font = rememberMeLabel.font.fontWithSize(14)
 		autoLoginLabel.text = "Auto Login"
 		autoLoginLabel.textColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
 
-		view.addSubview(logoImageView)
-		view.addSubview(usernameTextField)
-		view.addSubview(passwordTextField)
-		view.addSubview(loginButton)
-		view.addSubview(rememberMeSwitch)
-		view.addSubview(rememberMeLabel)
-		view.addSubview(autoLoginSwitch)
-		view.addSubview(autoLoginLabel)
+		overlayView = UIView(frame: view.frame)
+		overlayView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+		overlayView.hidden = true
+		activityView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+		activityView.center = view.center
+		activityView.color = UIColor.customPurple()
+
+		overlayView.addSubview(activityView)
+		contentView.addSubview(activityView)
+		contentView.addSubview(logoImageView)
+		contentView.addSubview(usernameTextField)
+		contentView.addSubview(passwordTextField)
+		contentView.addSubview(loginButton)
+		contentView.addSubview(rememberMeSwitch)
+		contentView.addSubview(rememberMeLabel)
+		contentView.addSubview(autoLoginSwitch)
+		contentView.addSubview(autoLoginLabel)
+		scrollView.addSubview(contentView)
+		view.addSubview(scrollView)
+		view.addSubview(overlayView)
 	}
 
 	override func setupConstraints() {
@@ -100,17 +139,27 @@ class LoginController: BaseViewController, LoginView {
 		let topMargin = UIScreen.mainScreen().bounds.height / 7
 		let imageHeight = (531 / (993 / (4 * horizontalMargin)))
 
+		scrollView.snp_makeConstraints { (make) in
+			make.edges.equalTo(self.view)
+		}
+
+		contentView.snp_makeConstraints { (make) in
+			make.edges.equalTo(scrollView)
+			make.width.equalTo(scrollView.snp_width)
+			make.height.equalTo(scrollView.snp_height)
+		}
+
 		logoImageView.snp_makeConstraints { (make) in
-			make.top.equalTo(self.view.snp_top).offset(topMargin)
-			make.left.equalTo(self.view.snp_left).offset(2 * horizontalMargin)
-			make.right.equalTo(self.view.snp_right).offset(2 * (-horizontalMargin))
+			make.top.equalTo(self.contentView.snp_top).offset(topMargin)
+			make.left.equalTo(self.contentView.snp_left).offset(2 * horizontalMargin)
+			make.right.equalTo(self.contentView.snp_right).offset(2 * (-horizontalMargin))
 			make.height.equalTo(imageHeight)
 		}
 
 		usernameTextField.snp_makeConstraints { (make) in
 			make.top.equalTo(logoImageView.snp_bottom).offset(topMargin)
-			make.left.equalTo(self.view.snp_left).offset(horizontalMargin)
-			make.right.equalTo(self.view.snp_right).offset(-horizontalMargin)
+			make.left.equalTo(self.contentView.snp_left).offset(horizontalMargin)
+			make.right.equalTo(self.contentView.snp_right).offset(-horizontalMargin)
 			make.height.equalTo(40)
 		}
 
@@ -125,7 +174,7 @@ class LoginController: BaseViewController, LoginView {
 			make.top.equalTo(passwordTextField.snp_bottom).offset(20)
 			make.left.equalTo(usernameTextField.snp_left)
 			make.right.equalTo(usernameTextField.snp_right)
-			make.height.equalTo(35)
+			make.height.equalTo(40)
 		}
 
 		rememberMeSwitch.snp_makeConstraints { (make) in
@@ -154,23 +203,104 @@ class LoginController: BaseViewController, LoginView {
 		passwordTextField.resignFirstResponder()
 	}
 
-	func fillTextFields() {
-
+	func loginButtonTapped() {
+		var userData = [String: AnyObject]()
+		userData[UserDataKeys.username] = usernameTextField.text
+		userData[UserDataKeys.password] = passwordTextField.text
+		userData[UserDataKeys.rememberMe] = rememberMeSwitch.on
+		userData[UserDataKeys.autoLogin] = autoLoginSwitch.on
+		presenter.login(userData)
 	}
 
-	func animate(shouldAnimate: Bool) {
+	func setContent(userData: [String: AnyObject]) {
+		usernameTextField.text = userData[UserDataKeys.username] as? String ?? ""
+		passwordTextField.text = userData[UserDataKeys.password] as? String ?? ""
+		rememberMeSwitch.on = userData[UserDataKeys.rememberMe] as? Bool ?? true
+		autoLoginSwitch.on = userData[UserDataKeys.autoLogin] as? Bool ?? false
+	}
 
+	func animate(shouldAnimate animate: Bool) {
+		if (animate) {
+			overlayView.hidden = false
+			activityView.startAnimating()
+			dismissKeyboard()
+
+		} else {
+			overlayView.hidden = true
+			activityView.stopAnimating()
+		}
 	}
 
 	func showNextScreen() {
 
 	}
+
+	func showErrorAlert() {
+		let alert = UIAlertController(title: "Најавувањето не беше успешно", message: "Не ви се пополнети сите полиња", preferredStyle: UIAlertControllerStyle.Alert)
+		let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+		alert.addAction(defaultAction)
+		presentViewController(alert, animated: true, completion: nil)
+	}
 }
 
 extension LoginController: UITextFieldDelegate {
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		textField.resignFirstResponder()
+		if (textField.tag == 0) {
+			passwordTextField.becomeFirstResponder()
+		} else {
+			textField.resignFirstResponder()
+			loginButtonTapped()
+		}
 		return true
 	}
 
+	func textFieldDidBeginEditing(textField: UITextField) {
+		activeField = textField
+	}
+
+	func textFieldDidEndEditing(textField: UITextField) {
+		activeField = nil
+	}
+
+	func registerForKeyboardNotifications() {
+		// Adding notifies on keyboard appearing
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginController.keyboardWasShown(_:)), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+	}
+
+	func deregisterFromKeyboardNotifications() {
+		// Removing notifies on keyboard appearing
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+	}
+
+	func keyboardWasShown(notification: NSNotification) {
+		// Need to calculate keyboard exact size due to Apple suggestions
+		self.scrollView.scrollEnabled = true
+		let info: NSDictionary = notification.userInfo!
+		let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().size
+		let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+
+		self.scrollView.contentInset = contentInsets
+		self.scrollView.scrollIndicatorInsets = contentInsets
+
+		var aRect: CGRect = self.view.frame
+		aRect.size.height -= keyboardSize!.height
+		if let activeFieldPresent = activeField {
+			if (!CGRectContainsPoint(aRect, activeFieldPresent.frame.origin)) {
+				self.scrollView.scrollRectToVisible(activeFieldPresent.frame, animated: true)
+			}
+		}
+	}
+
+	func keyboardWillBeHidden(notification: NSNotification) {
+		// Once keyboard disappears, restore original positions
+		let info: NSDictionary = notification.userInfo!
+		let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().size
+		let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+		self.scrollView.contentInset = contentInsets
+		self.scrollView.scrollIndicatorInsets = contentInsets
+		self.view.endEditing(true)
+		self.scrollView.scrollEnabled = false
+	}
 }
