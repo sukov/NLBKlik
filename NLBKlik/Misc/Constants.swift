@@ -6,4 +6,9 @@
 //  Copyright © 2016 WF | Gorjan Shukov. All rights reserved.
 //
 
-import Foundation
+struct UserDataKeys {
+	static let username = "username"
+	static let password = "password"
+	static let rememberMe = "rememberMe"
+	static let autoLogin = "autoLogin"
+}
