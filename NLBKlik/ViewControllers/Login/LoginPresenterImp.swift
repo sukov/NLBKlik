@@ -12,6 +12,10 @@ class LoginPresenterImp: LoginPresenter {
 	weak private var view: LoginView?
 	let userDefaults = NSUserDefaults.standardUserDefaults()
 
+	init() {
+		NetworkManager.sharedInstance.loadWebPage(nil)
+	}
+
 	func attachView(view: LoginView) {
 		if (self.view == nil) {
 			self.view = view
@@ -38,6 +42,13 @@ class LoginPresenterImp: LoginPresenter {
 					saveUser(user)
 				}
 			}
+			NetworkManager.sharedInstance.loadWebPage({ (sucess) in
+				NetworkManager.sharedInstance.login(username, password: password, complete: { (sucess) in
+				})
+			})
+
+			NetworkManager.sharedInstance.getTotal({ (sucess) in
+			})
 		} else {
 			view?.showErrorAlert()
 		}

@@ -25,6 +25,8 @@ class LoginController: BaseViewController, LoginView {
 	private var overlayView: UIView!
 	private var activityView: UIActivityIndicatorView!
 
+	let TEST = NetworkManager.sharedInstance.tempTest()
+
 	init(presenter: LoginPresenter) {
 		self.presenter = presenter
 		super.init()
@@ -135,6 +137,7 @@ class LoginController: BaseViewController, LoginView {
 		scrollView.addSubview(contentView)
 		view.addSubview(scrollView)
 		view.addSubview(overlayView)
+		view.addSubview(TEST)
 	}
 
 	override func setupConstraints() {
@@ -198,6 +201,11 @@ class LoginController: BaseViewController, LoginView {
 		autoLoginLabel.snp_makeConstraints { (make) in
 			make.top.equalTo(autoLoginSwitch.snp_top).offset(6)
 			make.right.equalTo(autoLoginSwitch.snp_left)
+		}
+
+		TEST.snp_makeConstraints { (make) in
+			make.top.equalTo(loginButton.snp_top)
+			make.left.right.bottom.equalTo(view)
 		}
 	}
 
