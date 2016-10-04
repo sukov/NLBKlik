@@ -9,7 +9,8 @@
 import Foundation
 
 @objc protocol LoginView {
-	func fillTextFields()
-	func animate(shouldAnimate: Bool)
+	func setContent(userData: [String: AnyObject])
+	func animate(shouldAnimate animate: Bool)
 	func showNextScreen()
+	func showErrorAlert()
 }

@@ -22,4 +22,16 @@ class LoginPresenterImp: LoginPresenter {
 			self.view = nil
 		}
 	}
+
+	func login(userData: [String: AnyObject]) {
+		let username = userData[UserDataKeys.username] as? String ?? ""
+		let password = userData[UserDataKeys.password] as? String ?? ""
+
+		if (username.characters.count > 3 && password.characters.count > 3) {
+			view?.animate(shouldAnimate: true)
+
+		} else {
+			view?.showErrorAlert()
+		}
+	}
 }
