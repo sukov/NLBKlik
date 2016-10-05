@@ -57,6 +57,8 @@ class LoginController: BaseViewController, LoginView {
 	}
 
 	override func setupViews() {
+		super.setupViews()
+
 		view.backgroundColor = UIColor.whiteColor()
 		view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
 
@@ -141,6 +143,8 @@ class LoginController: BaseViewController, LoginView {
 	}
 
 	override func setupConstraints() {
+		super.setupConstraints()
+
 		let horizontalMargin = UIScreen.mainScreen().bounds.width / 8
 		let topMargin = UIScreen.mainScreen().bounds.height / 7
 		let imageHeight = (531 / (993 / (4 * horizontalMargin)))
