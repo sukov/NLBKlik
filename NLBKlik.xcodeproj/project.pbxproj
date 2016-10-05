@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1486F71DA4F8C300D999C0 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1486F41DA4F8C300D999C0 /* SWRevealViewController.m */; };
+		1F1486FC1DA4FA6E00D999C0 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1486FB1DA4FA6E00D999C0 /* MainController.swift */; };
+		1F1487001DA5002400D999C0 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1486FF1DA5002400D999C0 /* MenuController.swift */; };
+		1F1487021DA5003100D999C0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1487011DA5003100D999C0 /* MenuView.swift */; };
+		1F1487041DA5003C00D999C0 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1487031DA5003C00D999C0 /* MenuPresenter.swift */; };
+		1F1487061DA5004600D999C0 /* MenuPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1487051DA5004600D999C0 /* MenuPresenterImp.swift */; };
+		1F1487081DA512CC00D999C0 /* AvailableFundsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1487071DA512CC00D999C0 /* AvailableFundsController.swift */; };
+		1F14870A1DA512DC00D999C0 /* AvailableFundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1487091DA512DC00D999C0 /* AvailableFundsView.swift */; };
+		1F14870C1DA512E500D999C0 /* AvailableFundsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F14870B1DA512E500D999C0 /* AvailableFundsPresenter.swift */; };
+		1F14870E1DA512F000D999C0 /* AvailableFundsPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F14870D1DA512F000D999C0 /* AvailableFundsPresenterImp.swift */; };
 		1F166F5C1DA3C07600D7CEAE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F166F5B1DA3C07600D7CEAE /* NetworkManager.swift */; };
 		1F9CC0541DA256BE0090071A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0531DA256BE0090071A /* AppDelegate.swift */; };
 		1F9CC05B1DA256BE0090071A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F9CC05A1DA256BE0090071A /* Assets.xcassets */; };
@@ -24,6 +34,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F1486EC1DA4F85F00D999C0 /* NLBKlik-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NLBKlik-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		1F1486F31DA4F8C300D999C0 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		1F1486F41DA4F8C300D999C0 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		1F1486FB1DA4FA6E00D999C0 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		1F1486FF1DA5002400D999C0 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		1F1487011DA5003100D999C0 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		1F1487031DA5003C00D999C0 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		1F1487051DA5004600D999C0 /* MenuPresenterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenterImp.swift; sourceTree = "<group>"; };
+		1F1487071DA512CC00D999C0 /* AvailableFundsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsController.swift; sourceTree = "<group>"; };
+		1F1487091DA512DC00D999C0 /* AvailableFundsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsView.swift; sourceTree = "<group>"; };
+		1F14870B1DA512E500D999C0 /* AvailableFundsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsPresenter.swift; sourceTree = "<group>"; };
+		1F14870D1DA512F000D999C0 /* AvailableFundsPresenterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsPresenterImp.swift; sourceTree = "<group>"; };
 		1F166F5B1DA3C07600D7CEAE /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1F9CC0501DA256BE0090071A /* NLBKlik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NLBKlik.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9CC0531DA256BE0090071A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +78,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F1486F51DA4F8C300D999C0 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1F1486F31DA4F8C300D999C0 /* SWRevealViewController.h */,
+				1F1486F41DA4F8C300D999C0 /* SWRevealViewController.m */,
+			);
+			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		1F1486F61DA4F8C300D999C0 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				1F1486F51DA4F8C300D999C0 /* SWRevealViewController */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		1F1486FA1DA4FA6E00D999C0 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				1F1486FB1DA4FA6E00D999C0 /* MainController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		1F1486FD1DA4FAAD00D999C0 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
+		1F1486FE1DA4FAD400D999C0 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				1F1486FF1DA5002400D999C0 /* MenuController.swift */,
+				1F1487011DA5003100D999C0 /* MenuView.swift */,
+				1F1487031DA5003C00D999C0 /* MenuPresenter.swift */,
+				1F1487051DA5004600D999C0 /* MenuPresenterImp.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		1F166F5A1DA3C06E00D7CEAE /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +134,7 @@
 			children = (
 				1F9CC0521DA256BE0090071A /* NLBKlik */,
 				1F9CC0511DA256BE0090071A /* Products */,
+				1F1486F61DA4F8C300D999C0 /* Libs */,
 				FDEFB40BCB7EB39E52A4B51B /* Pods */,
 				D4CA25F3561242DFEB780153 /* Frameworks */,
 			);
@@ -86,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				1F9CC0531DA256BE0090071A /* AppDelegate.swift */,
+				1F1486EC1DA4F85F00D999C0 /* NLBKlik-Bridging-Header.h */,
 				1F9CC05A1DA256BE0090071A /* Assets.xcassets */,
 				1F9CC05F1DA256BE0090071A /* Info.plist */,
 				1F166F5A1DA3C06E00D7CEAE /* Network */,
@@ -103,8 +170,10 @@
 			children = (
 				1F9CC07C1DA261AF0090071A /* BaseViewController.swift */,
 				1F9CC06C1DA259E50090071A /* Login */,
+				1F1486FA1DA4FA6E00D999C0 /* Main */,
+				1F1486FE1DA4FAD400D999C0 /* Menu */,
 				1F9CC06D1DA25D1A0090071A /* AvailableFunds */,
-				1F9CC06F1DA25D1A0090071A /* Turnovers */,
+				1F1486FD1DA4FAAD00D999C0 /* Transactions */,
 				1F9CC06E1DA25D1A0090071A /* ReservedFunds */,
 			);
 			path = ViewControllers;
@@ -141,6 +210,10 @@
 		1F9CC06D1DA25D1A0090071A /* AvailableFunds */ = {
 			isa = PBXGroup;
 			children = (
+				1F1487071DA512CC00D999C0 /* AvailableFundsController.swift */,
+				1F1487091DA512DC00D999C0 /* AvailableFundsView.swift */,
+				1F14870B1DA512E500D999C0 /* AvailableFundsPresenter.swift */,
+				1F14870D1DA512F000D999C0 /* AvailableFundsPresenterImp.swift */,
 			);
 			path = AvailableFunds;
 			sourceTree = "<group>";
@@ -150,13 +223,6 @@
 			children = (
 			);
 			path = ReservedFunds;
-			sourceTree = "<group>";
-		};
-		1F9CC06F1DA25D1A0090071A /* Turnovers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Turnovers;
 			sourceTree = "<group>";
 		};
 		1F9CC07E1DA2736B0090071A /* Managers */ = {
@@ -313,18 +379,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1487061DA5004600D999C0 /* MenuPresenterImp.swift in Sources */,
 				1F9CC0831DA281480090071A /* UIView.swift in Sources */,
 				1F9CC0871DA28B970090071A /* UIColor.swift in Sources */,
+				1F1487081DA512CC00D999C0 /* AvailableFundsController.swift in Sources */,
+				1F14870E1DA512F000D999C0 /* AvailableFundsPresenterImp.swift in Sources */,
+				1F1486F71DA4F8C300D999C0 /* SWRevealViewController.m in Sources */,
+				1F14870C1DA512E500D999C0 /* AvailableFundsPresenter.swift in Sources */,
 				1F9CC0851DA28B7F0090071A /* Constants.swift in Sources */,
+				1F1486FC1DA4FA6E00D999C0 /* MainController.swift in Sources */,
 				1F166F5C1DA3C07600D7CEAE /* NetworkManager.swift in Sources */,
 				1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */,
 				1F9CC0771DA25DF20090071A /* LoginPresenterImp.swift in Sources */,
+				1F1487041DA5003C00D999C0 /* MenuPresenter.swift in Sources */,
 				1F9CC0711DA25DCC0090071A /* LoginController.swift in Sources */,
+				1F1487021DA5003100D999C0 /* MenuView.swift in Sources */,
 				1F9CC0731DA25DD70090071A /* LoginView.swift in Sources */,
+				1F1487001DA5002400D999C0 /* MenuController.swift in Sources */,
 				1F9CC0541DA256BE0090071A /* AppDelegate.swift in Sources */,
 				1F9CC07D1DA261AF0090071A /* BaseViewController.swift in Sources */,
 				1F9CC0751DA25DE90090071A /* LoginPresenter.swift in Sources */,
 				1F9CC07B1DA25F530090071A /* User.swift in Sources */,
+				1F14870A1DA512DC00D999C0 /* AvailableFundsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +495,7 @@
 			baseConfigurationReference = 546CD944586DC46B15B1D12E /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = NLBKlik/Info.plist;
@@ -426,6 +503,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shukov.NLBKlik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "NLBKlik-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -434,6 +513,7 @@
 			baseConfigurationReference = 585531AE289A3BF8826ED5EE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = NLBKlik/Info.plist;
@@ -441,6 +521,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shukov.NLBKlik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "NLBKlik-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -4,6 +4,20 @@
    <FileRef
       location = "group:NLBKlik.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:Libs"
+      name = "Libs">
+      <FileRef
+         location = "group:SWRevealViewController/SWRevealViewController.h">
+      </FileRef>
+      <FileRef
+         location = "group:SWRevealViewController/SWRevealViewController.m">
+      </FileRef>
+      <Group
+         location = "group:SWRevealViewController"
+         name = "SWRevealViewController">
+      </Group>
+   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
