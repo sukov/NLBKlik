@@ -12,3 +12,13 @@ struct UserDataKeys {
 	static let rememberMe = "rememberMe"
 	static let autoLogin = "autoLogin"
 }
+
+struct ItemKeys {
+	static let text = "text"
+	static let image = "image"
+}
+
+struct AccountKeys {
+	static let name = "name"
+	static let availableFunds = "availableFunds"
+}
