@@ -42,13 +42,14 @@ class LoginPresenterImp: LoginPresenter {
 					saveUser(user)
 				}
 			}
-			NetworkManager.sharedInstance.loadWebPage({ (sucess) in
-				NetworkManager.sharedInstance.login(username, password: password, complete: { (sucess) in
+			NetworkManager.sharedInstance.loadWebPage({ (success) in
+				NetworkManager.sharedInstance.login(username, password: password, complete: { (success) in
+					NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
+
+					})
 				})
 			})
 
-			NetworkManager.sharedInstance.getTotal({ (sucess) in
-			})
 		} else {
 			view?.showErrorAlert()
 		}

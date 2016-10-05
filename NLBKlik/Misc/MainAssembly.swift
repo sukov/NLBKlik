@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class MainAssembly {
 	static let sharedInstance = MainAssembly()
@@ -18,5 +19,20 @@ class MainAssembly {
 
 	func getLoginController() -> LoginController {
 		return LoginController(presenter: MainAssembly.sharedInstance.getLoginPresenter())
+	}
+
+	// Menu
+	func getMenuPresenter() -> MenuPresenter {
+		return MenuPresenterImp()
+	}
+
+	func getMenuController() -> MenuController {
+		return MenuController(presenter: MainAssembly.sharedInstance.getMenuPresenter())
+	}
+
+	// Main
+	func getMainController() -> MainController {
+		let mainController = MainController(rearViewController: MainAssembly.sharedInstance.getMenuController(), frontViewController: UINavigationController(rootViewController: BaseViewController()))
+		return mainController
 	}
 }
