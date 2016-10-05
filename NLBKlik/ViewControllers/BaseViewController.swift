@@ -22,6 +22,7 @@ class BaseViewController: UIViewController {
 		super.viewDidLoad()
 		setupViews()
 		setupConstraints()
+		setupNavigationBar()
 	}
 
 	func setupViews() {
@@ -30,5 +31,16 @@ class BaseViewController: UIViewController {
 
 	func setupConstraints() {
 
+	}
+
+	func setupNavigationBar() {
+		let revealBtn = UIButton()
+		revealBtn.setImage(UIImage(named: "RevealIcon"), forState: .Normal)
+		revealBtn.frame = CGRectMake(0, 0, 30, 30)
+		let revealBarButton = UIBarButtonItem()
+		revealBarButton.customView = revealBtn
+		navigationItem.leftBarButtonItem = revealBarButton
+		let revealController = revealViewController()
+		revealBtn.addTarget(revealController, action: #selector(revealController.revealToggle(_:)), forControlEvents: .TouchUpInside)
 	}
 }
