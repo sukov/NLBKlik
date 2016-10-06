@@ -22,10 +22,7 @@ class LoginController: BaseViewController, LoginView {
 	private var rememberMeSwitch: UISwitch!
 	private var autoLoginLabel: UILabel!
 	private var autoLoginSwitch: UISwitch!
-	private var overlayView: UIView!
-	private var activityView: UIActivityIndicatorView!
-
-	let TEST = NetworkManager.sharedInstance.tempTest()
+	private var animationView: AnimationView!
 
 	init(presenter: LoginPresenter) {
 		self.presenter = presenter
@@ -119,15 +116,8 @@ class LoginController: BaseViewController, LoginView {
 		autoLoginLabel.text = "Auto Login"
 		autoLoginLabel.textColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
 
-		overlayView = UIView(frame: view.frame)
-		overlayView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
-		overlayView.hidden = true
-		activityView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
-		activityView.center = view.center
-		activityView.color = UIColor.customPurple()
+		animationView = AnimationView(frame: UIScreen.mainScreen().bounds)
 
-		overlayView.addSubview(activityView)
-		contentView.addSubview(activityView)
 		contentView.addSubview(logoImageView)
 		contentView.addSubview(usernameTextField)
 		contentView.addSubview(passwordTextField)
@@ -138,8 +128,7 @@ class LoginController: BaseViewController, LoginView {
 		contentView.addSubview(autoLoginLabel)
 		scrollView.addSubview(contentView)
 		view.addSubview(scrollView)
-		view.addSubview(overlayView)
-		view.addSubview(TEST)
+		view.addSubview(animationView)
 	}
 
 	override func setupConstraints() {
@@ -207,10 +196,6 @@ class LoginController: BaseViewController, LoginView {
 			make.right.equalTo(autoLoginSwitch.snp_left)
 		}
 
-		TEST.snp_makeConstraints { (make) in
-			make.top.equalTo(loginButton.snp_top)
-			make.left.right.bottom.equalTo(view)
-		}
 	}
 
 	func rememberMeSwitchChangedValue(sender: UISwitch) {
@@ -247,22 +232,20 @@ class LoginController: BaseViewController, LoginView {
 
 	func animate(shouldAnimate animate: Bool) {
 		if (animate) {
-			overlayView.hidden = false
-			activityView.startAnimating()
 			dismissKeyboard()
-
-		} else {
-			overlayView.hidden = true
-			activityView.stopAnimating()
 		}
+		animationView.animate(animate)
 	}
 
 	func showNextScreen() {
-
+		presentViewController(MainAssembly.sharedInstance.getMainController(), animated: true, completion: nil)
 	}
 
 	func showErrorAlert() {
-		let alert = UIAlertController(title: "Најавувањето не беше успешно", message: "Не ви се пополнети сите полиња", preferredStyle: UIAlertControllerStyle.Alert)
+		let alert = UIAlertController(title: "Login error",
+			message: "Please fill username and password fields with valid data",
+			preferredStyle: UIAlertControllerStyle.Alert)
+
 		let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
 		alert.addAction(defaultAction)
 		presentViewController(alert, animated: true, completion: nil)
