@@ -42,15 +42,20 @@ class LoginPresenterImp: LoginPresenter {
 					saveUser(user)
 				}
 			}
-			NetworkManager.sharedInstance.loadWebPage({ (success) in
+			NetworkManager.sharedInstance.loadWebPage({ [weak self](success) in
 				NetworkManager.sharedInstance.login(username, password: password, complete: { (success) in
-					NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
+					if (success) {
+						self?.view?.animate(shouldAnimate: false)
+						self?.view?.showNextScreen()
+					} else {
+						self?.view?.animate(shouldAnimate: false)
+					}
 
-					})
 				})
 			})
 
 		} else {
+			view?.animate(shouldAnimate: false)
 			view?.showErrorAlert()
 		}
 	}
