@@ -27,6 +27,10 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 	private var logInCompleted: Optional < (success: Bool) -> Void >
 	private var loadingFinnished: Optional < () -> Void >
 
+	func test(handler: () -> Void) {
+
+	}
+
 	override init() {
 		super.init()
 		webView.delegate = self
@@ -45,7 +49,6 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 			}
 		default: break
 		}
-
 		print(pageCoordinator)
 	}
 
@@ -86,11 +89,12 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 	}
 
 	func getAvailableFunds(complete: (transactionAcc: [[String: String]]?, debitCards: [[String: String]]?, success: Bool) -> Void) {
+		nextPage = .AvailableFunds
 		if (currentPage != .AvailableFunds) {
-			nextPage = .AvailableFunds
 			self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_1_a_href').click()")
 			self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_3_Item').click()")
 		}
+
 		let timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
 		loadingFinnished = {
 			timer.invalidate()
@@ -107,28 +111,33 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 				}
 
 				if (transaction) {
-					let accountName = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[1].getElementsByTagName('span')[0].innerHTML").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) + "\n" + self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[1].getElementsByTagName('i')[0].innerHTML")
+					let accountName = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[1].getElementsByTagName('span')[0].innerHTML").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) + " " + self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[1].getElementsByTagName('i')[0].innerHTML")
 
 					guard accountName.characters.count > 4 else {
 						continue
 					}
 
-					let availableFunds = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('strong')[0].innerHTML").characters.split { $0 == "&" }.map(String.init)[0]
+					let availableFunds = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByClassName('amount')[0].getElementsByTagName('strong')[0].innerHTML").characters.split { $0 == "&" }.map(String.init)[0]
+
+					print(self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByClassName('amount')[0].getElementsByTagName('strong')[0].innerHTML"))
 
 					transactionAcc.append([AccountKeys.name: accountName, AccountKeys.availableFunds: availableFunds])
 				}
 				else {
-					let cardName = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[1].getElementsByTagName('span')[0].innerHTML").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) + "\n" + self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[1].getElementsByTagName('i')[0].innerHTML")
+					var cardName = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[1].getElementsByTagName('span')[0].innerHTML").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) + " " + self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[1].getElementsByTagName('i')[0].innerHTML")
 
 					guard cardName.characters.count > 4 else {
 						continue
 					}
 
-					let availableFunds = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByTagName('strong')[1].innerHTML")
+					let firstSelectorEndIndex = cardName.characters.indexOf(">")
+					if (firstSelectorEndIndex != nil) {
+						cardName = cardName.substringFromIndex(firstSelectorEndIndex!.advancedBy(1)).stringByReplacingOccurrencesOfString("</a>", withString: "")
+					}
+
+					let availableFunds = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByClassName('amount')[1].getElementsByTagName('strong')[0].innerHTML")
 					debitCards.append([AccountKeys.name: cardName, AccountKeys.availableFunds: availableFunds])
 				}
-				print(transactionAcc)
-				print(debitCards)
 			}
 			complete(transactionAcc: transactionAcc, debitCards: debitCards, success: true)
 		}
@@ -137,20 +146,25 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 
 	func getTransactions() {
 		nextPage = .Transactions
+		if (currentPage != .Transactions) {
+			executeJavaScriptFromString("document.getElementById('key_21_a_href').click()")
+			executeJavaScriptFromString("document.getElementById('key_25_Item').click()")
+		}
 
-		self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_21_a_href').click()")
-		self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_25_Item').click()")
+		let timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
 
 		loadingFinnished = {
+			timer.invalidate()
 			self.currentPage = .Transactions
+			self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms')")
 		}
 	}
 
 	func getReservedFunds() {
 		nextPage = .ReservedFunds
 
-		self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_21_a_href').click()")
-		self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_29_Item').click()")
+		executeJavaScriptFromString("document.getElementById('key_21_a_href').click()")
+		executeJavaScriptFromString("document.getElementById('key_29_Item').click()")
 
 		loadingFinnished = {
 			self.currentPage = .Transactions

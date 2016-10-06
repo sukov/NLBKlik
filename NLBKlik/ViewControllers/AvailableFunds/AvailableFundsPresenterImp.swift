@@ -14,6 +14,11 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 	func attachView(view: AvailableFundsView) {
 		if (self.view == nil) {
 			self.view = view
+			NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
+				if (success) {
+					view.showItems(transactionAcc!, debitCards: debitCards!)
+				}
+			})
 		}
 	}
 
