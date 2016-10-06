@@ -42,5 +42,6 @@ class BaseViewController: UIViewController {
 		navigationItem.leftBarButtonItem = revealBarButton
 		let revealController = revealViewController()
 		revealBtn.addTarget(revealController, action: #selector(revealController.revealToggle(_:)), forControlEvents: .TouchUpInside)
+		navigationController?.navigationBar.translucent = false
 	}
 }

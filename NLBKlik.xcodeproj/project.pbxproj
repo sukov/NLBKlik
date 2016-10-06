@@ -18,6 +18,9 @@
 		1F14870C1DA512E500D999C0 /* AvailableFundsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F14870B1DA512E500D999C0 /* AvailableFundsPresenter.swift */; };
 		1F14870E1DA512F000D999C0 /* AvailableFundsPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F14870D1DA512F000D999C0 /* AvailableFundsPresenterImp.swift */; };
 		1F166F5C1DA3C07600D7CEAE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F166F5B1DA3C07600D7CEAE /* NetworkManager.swift */; };
+		1F4634341DA653960030B83D /* AvailableFundsTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4634331DA653950030B83D /* AvailableFundsTableHeaderView.swift */; };
+		1F4634361DA66CFE0030B83D /* AvailableFundsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4634351DA66CFE0030B83D /* AvailableFundsCell.swift */; };
+		1F4634391DA6895B0030B83D /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4634381DA6895B0030B83D /* AnimationView.swift */; };
 		1F9CC0541DA256BE0090071A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0531DA256BE0090071A /* AppDelegate.swift */; };
 		1F9CC05B1DA256BE0090071A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F9CC05A1DA256BE0090071A /* Assets.xcassets */; };
 		1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC06A1DA259100090071A /* MainAssembly.swift */; };
@@ -47,6 +50,9 @@
 		1F14870B1DA512E500D999C0 /* AvailableFundsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsPresenter.swift; sourceTree = "<group>"; };
 		1F14870D1DA512F000D999C0 /* AvailableFundsPresenterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsPresenterImp.swift; sourceTree = "<group>"; };
 		1F166F5B1DA3C07600D7CEAE /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		1F4634331DA653950030B83D /* AvailableFundsTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsTableHeaderView.swift; sourceTree = "<group>"; };
+		1F4634351DA66CFE0030B83D /* AvailableFundsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsCell.swift; sourceTree = "<group>"; };
+		1F4634381DA6895B0030B83D /* AnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		1F9CC0501DA256BE0090071A /* NLBKlik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NLBKlik.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9CC0531DA256BE0090071A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F9CC05A1DA256BE0090071A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -129,6 +135,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		1F4634371DA689210030B83D /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				1F4634381DA6895B0030B83D /* AnimationView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 		1F9CC0471DA256BE0090071A = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +175,7 @@
 				1F9CC07E1DA2736B0090071A /* Managers */,
 				1F9CC0671DA257BD0090071A /* Models */,
 				1F9CC0651DA2577C0090071A /* ViewControllers */,
+				1F4634371DA689210030B83D /* CustomViews */,
 			);
 			path = NLBKlik;
 			sourceTree = "<group>";
@@ -214,6 +229,8 @@
 				1F1487091DA512DC00D999C0 /* AvailableFundsView.swift */,
 				1F14870B1DA512E500D999C0 /* AvailableFundsPresenter.swift */,
 				1F14870D1DA512F000D999C0 /* AvailableFundsPresenterImp.swift */,
+				1F4634331DA653950030B83D /* AvailableFundsTableHeaderView.swift */,
+				1F4634351DA66CFE0030B83D /* AvailableFundsCell.swift */,
 			);
 			path = AvailableFunds;
 			sourceTree = "<group>";
@@ -385,14 +402,17 @@
 				1F1487081DA512CC00D999C0 /* AvailableFundsController.swift in Sources */,
 				1F14870E1DA512F000D999C0 /* AvailableFundsPresenterImp.swift in Sources */,
 				1F1486F71DA4F8C300D999C0 /* SWRevealViewController.m in Sources */,
+				1F4634341DA653960030B83D /* AvailableFundsTableHeaderView.swift in Sources */,
 				1F14870C1DA512E500D999C0 /* AvailableFundsPresenter.swift in Sources */,
 				1F9CC0851DA28B7F0090071A /* Constants.swift in Sources */,
 				1F1486FC1DA4FA6E00D999C0 /* MainController.swift in Sources */,
 				1F166F5C1DA3C07600D7CEAE /* NetworkManager.swift in Sources */,
 				1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */,
+				1F4634361DA66CFE0030B83D /* AvailableFundsCell.swift in Sources */,
 				1F9CC0771DA25DF20090071A /* LoginPresenterImp.swift in Sources */,
 				1F1487041DA5003C00D999C0 /* MenuPresenter.swift in Sources */,
 				1F9CC0711DA25DCC0090071A /* LoginController.swift in Sources */,
+				1F4634391DA6895B0030B83D /* AnimationView.swift in Sources */,
 				1F1487021DA5003100D999C0 /* MenuView.swift in Sources */,
 				1F9CC0731DA25DD70090071A /* LoginView.swift in Sources */,
 				1F1487001DA5002400D999C0 /* MenuController.swift in Sources */,

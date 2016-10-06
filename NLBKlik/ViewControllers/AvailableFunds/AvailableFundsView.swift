@@ -9,5 +9,5 @@
 import Foundation
 
 @objc protocol AvailableFundsView {
-
+	func showItems(transactionAcc: [[String: String]], debitCards: [[String: String]])
 }

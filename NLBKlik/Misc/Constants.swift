@@ -13,7 +13,7 @@ struct UserDataKeys {
 	static let autoLogin = "autoLogin"
 }
 
-struct ItemKeys {
+struct MenuItemKeys {
 	static let text = "text"
 	static let image = "image"
 }

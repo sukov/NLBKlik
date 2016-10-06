@@ -14,9 +14,9 @@ class MenuPresenterImp: MenuPresenter {
 	func attachView(view: MenuView) {
 		if (self.view == nil) {
 			self.view = view
-			let items = [[ItemKeys.text: "Available funds", ItemKeys.image: "AvailableFunds"],
-				[ItemKeys.text: "Transactions", ItemKeys.image: "Transactions"],
-				[ItemKeys.text: "Reserved funds", ItemKeys.image: "ReservedFunds"]]
+			let items = [[MenuItemKeys.text: "Available funds", MenuItemKeys.image: "AvailableFunds"],
+				[MenuItemKeys.text: "Transactions", MenuItemKeys.image: "Transactions"],
+				[MenuItemKeys.text: "Reserved funds", MenuItemKeys.image: "ReservedFunds"]]
 			view.showItems(items)
 		}
 	}

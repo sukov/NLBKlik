@@ -30,9 +30,18 @@ class MainAssembly {
 		return MenuController(presenter: MainAssembly.sharedInstance.getMenuPresenter())
 	}
 
+	// AvailableFunds
+	func getAvailableFundsPresenter() -> AvailableFundsPresenter {
+		return AvailableFundsPresenterImp()
+	}
+
+	func getAvailableFundsController() -> UIViewController {
+		return UINavigationController(rootViewController: AvailableFundsController(presenter: MainAssembly.sharedInstance.getAvailableFundsPresenter()))
+	}
+
 	// Main
 	func getMainController() -> MainController {
-		let mainController = MainController(rearViewController: MainAssembly.sharedInstance.getMenuController(), frontViewController: UINavigationController(rootViewController: BaseViewController()))
+		let mainController = MainController(rearViewController: MainAssembly.sharedInstance.getMenuController(), frontViewController: MainAssembly.sharedInstance.getAvailableFundsController())
 		return mainController
 	}
 }

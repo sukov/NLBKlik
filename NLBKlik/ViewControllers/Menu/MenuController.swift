@@ -35,12 +35,11 @@ class MenuController: BaseViewController, MenuView {
 	override func setupViews() {
 		super.setupViews()
 
-		view.backgroundColor = UIColor.whiteColor()
-
 		tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellID)
+		tableView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.1)
 
 		view.addSubview(tableView)
 	}
@@ -56,12 +55,18 @@ class MenuController: BaseViewController, MenuView {
 	func showItems(items: [[String: String]]) {
 		self.items = items
 		tableView.reloadData()
+		tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
 	}
 }
 
 extension MenuController: UITableViewDelegate {
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
+		switch indexPath.row {
+		case 0: revealViewController().pushFrontViewController(MainAssembly.sharedInstance.getAvailableFundsController(), animated: true)
+		case 1: break
+		case 2: break
+		default: break
+		}
 	}
 }
 
@@ -75,8 +80,8 @@ extension MenuController: UITableViewDataSource {
 		let cell = tableView.dequeueReusableCellWithIdentifier(cellID)!
 		cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
 		let currentItem = items![indexPath.row]
-		cell.textLabel?.text = currentItem[ItemKeys.text]
-		cell.imageView?.image = UIImage(named: currentItem[ItemKeys.image] ?? "")
+		cell.textLabel?.text = currentItem[MenuItemKeys.text]
+		cell.imageView?.image = UIImage(named: currentItem[MenuItemKeys.image] ?? "")
 		return cell
 	}
 }
