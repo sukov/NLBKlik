@@ -12,8 +12,8 @@ class AvailableFundsController: BaseViewController, AvailableFundsView {
 	private var presenter: AvailableFundsPresenter
 	private var transactionAcc: [[String: String]]?
 	private var debitCards: [[String: String]]?
-	private let cellID = "AvailableFundsCell"
 	private var tableView: UITableView!
+	private let cellID = "AvailableFundsCell"
 	private let accountsHeaderView = AvailableFundsTableHeaderView(headerName: "Accounts")
 	private let debitCardsHeaderView = AvailableFundsTableHeaderView(headerName: "Debit Cards")
 
@@ -61,6 +61,12 @@ class AvailableFundsController: BaseViewController, AvailableFundsView {
 			make.bottom.equalTo(self.view)
 		}
 	}
+    
+    override func setupNavigationBar() {
+        super.setupNavigationBar()
+       
+        navigationItem.title = "Available funds"
+    }
 
 	func showItems(transactionAcc: [[String: String]], debitCards: [[String: String]]) {
 		self.transactionAcc = transactionAcc
@@ -75,8 +81,8 @@ extension AvailableFundsController: UITableViewDelegate {
 	}
 
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		let currentItem = (indexPath.section == 0) ? transactionAcc![indexPath.row]: debitCards![indexPath.row]
-		return AvailableFundsCell.calculateFontHeight(currentItem[AccountKeys.name]!) + 5
+		let currentItem = (indexPath.section == 0) ? transactionAcc?[indexPath.row]: debitCards?[indexPath.row]
+		return AvailableFundsCell.calculateFontHeight(currentItem?[AccountKeys.name]) + 5
 	}
 
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -97,7 +103,7 @@ extension AvailableFundsController: UITableViewDataSource {
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier(cellID) as! AvailableFundsCell
 
-		let currentItem = (indexPath.section == 0) ? transactionAcc![indexPath.row]: debitCards![indexPath.row]
+		let currentItem = (indexPath.section == 0) ? transactionAcc?[indexPath.row]: debitCards?[indexPath.row]
 		cell.setContent(currentItem)
 		return cell
 	}

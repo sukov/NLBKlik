@@ -30,8 +30,8 @@ class AvailableFundsCell: UITableViewCell {
 
 		availableFunds = UILabel()
 		availableFunds.font = availableFunds.font.fontWithSize(AvailableFundsCell.fontSize)
-		availableFunds.textAlignment = NSTextAlignment.Right
-		availableFunds.lineBreakMode = NSLineBreakMode.ByWordWrapping
+		availableFunds.textAlignment = .Right
+		availableFunds.lineBreakMode = .ByWordWrapping
 		availableFunds.numberOfLines = 0
 
 		addSubview(accountName)
@@ -54,14 +54,18 @@ class AvailableFundsCell: UITableViewCell {
 		}
 	}
 
-	func setContent(item: [String: String]) {
-		accountName.text = item[AccountKeys.name]
-		availableFunds.text = item[AccountKeys.availableFunds]
+	func setContent(item: [String: String]?) {
+		accountName.text = item?[AccountKeys.name]
+		availableFunds.text = item?[AccountKeys.availableFunds]
 	}
 
-	static func calculateFontHeight(text: String, width: CGFloat = (UIScreen.mainScreen().bounds.width - 20) / 2, fontSize: CGFloat = AvailableFundsCell.fontSize) -> CGFloat {
+	static func calculateFontHeight(text: String?, width: CGFloat = (UIScreen.mainScreen().bounds.width - 20) / 2, fontSize: CGFloat = AvailableFundsCell.fontSize) -> CGFloat {
+		guard text != nil else {
+			return 30
+		}
+
 		let maxLineCharacters = (width / fontSize) * 1.95
 		let fontHeight = fontSize + 7
-		return ceil(CGFloat(text.characters.count) / maxLineCharacters) * fontHeight
+		return ceil(CGFloat(text!.characters.count) / maxLineCharacters) * fontHeight
 	}
 }

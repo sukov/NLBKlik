@@ -29,12 +29,12 @@ class AvailableFundsTableHeaderView: UIView {
 	}
 
 	func setupViews() {
-		backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.7)
+		backgroundColor = UIColor.grayColor()
 
-		headerNameLabel.textAlignment = NSTextAlignment.Center
+		headerNameLabel.textAlignment = .Center
 		headerNameLabel.font = UIFont.boldSystemFontOfSize(17)
 		headerNameLabel.textColor = UIColor.whiteColor()
-		availableFundsLabel.text = "Available Funds"
+		availableFundsLabel.text = "Available funds"
 		availableFundsLabel.textColor = UIColor.whiteColor()
 		accountNameLabel.text = "Name"
 		accountNameLabel.textColor = UIColor.whiteColor()

@@ -63,8 +63,8 @@ extension MenuController: UITableViewDelegate {
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		switch indexPath.row {
 		case 0: revealViewController().pushFrontViewController(MainAssembly.sharedInstance.getAvailableFundsController(), animated: true)
-		case 1: break
-		case 2: break
+		case 1: revealViewController().pushFrontViewController(MainAssembly.sharedInstance.getTransactionsController(), animated: true)
+		case 2: revealViewController().pushFrontViewController(MainAssembly.sharedInstance.getReservedFundsController(), animated: true)
 		default: break
 		}
 	}

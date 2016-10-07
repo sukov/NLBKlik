@@ -30,6 +30,12 @@ class MainAssembly {
 		return MenuController(presenter: MainAssembly.sharedInstance.getMenuPresenter())
 	}
 
+	// Main
+	func getMainController() -> MainController {
+		let mainController = MainController(rearViewController: MainAssembly.sharedInstance.getMenuController(), frontViewController: MainAssembly.sharedInstance.getAvailableFundsController())
+		return mainController
+	}
+
 	// AvailableFunds
 	func getAvailableFundsPresenter() -> AvailableFundsPresenter {
 		return AvailableFundsPresenterImp()
@@ -39,9 +45,22 @@ class MainAssembly {
 		return UINavigationController(rootViewController: AvailableFundsController(presenter: MainAssembly.sharedInstance.getAvailableFundsPresenter()))
 	}
 
-	// Main
-	func getMainController() -> MainController {
-		let mainController = MainController(rearViewController: MainAssembly.sharedInstance.getMenuController(), frontViewController: MainAssembly.sharedInstance.getAvailableFundsController())
-		return mainController
+	// Transactions
+	func getTransactionsPresenter() -> TransactionsPresenter {
+		return TransactionsPresenterImp()
 	}
+
+	func getTransactionsController() -> UIViewController {
+		return UINavigationController(rootViewController: TransactionsController(presenter: MainAssembly.sharedInstance.getTransactionsPresenter()))
+	}
+
+	// ReservedFunds
+	func getReservedFundsPresenter() -> ReservedFundsPresenter {
+		return ReservedFundsPresenterImp()
+	}
+
+	func getReservedFundsController() -> UIViewController {
+		return UINavigationController(rootViewController: ReservedFundsController(presenter: MainAssembly.sharedInstance.getReservedFundsPresenter()))
+	}
+
 }

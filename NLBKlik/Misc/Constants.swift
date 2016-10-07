@@ -22,3 +22,9 @@ struct AccountKeys {
 	static let name = "name"
 	static let availableFunds = "availableFunds"
 }
+
+struct TransactionKeys {
+	static let date = "date"
+	static let desc = "desc"
+	static let amount = "amount"
+}

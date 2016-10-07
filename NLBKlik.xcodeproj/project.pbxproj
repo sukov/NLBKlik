@@ -21,6 +21,13 @@
 		1F4634341DA653960030B83D /* AvailableFundsTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4634331DA653950030B83D /* AvailableFundsTableHeaderView.swift */; };
 		1F4634361DA66CFE0030B83D /* AvailableFundsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4634351DA66CFE0030B83D /* AvailableFundsCell.swift */; };
 		1F4634391DA6895B0030B83D /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4634381DA6895B0030B83D /* AnimationView.swift */; };
+		1F46343B1DA6A04E0030B83D /* TransactionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F46343A1DA6A04E0030B83D /* TransactionsController.swift */; };
+		1F46343D1DA6A0790030B83D /* TransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F46343C1DA6A0790030B83D /* TransactionsView.swift */; };
+		1F46343F1DA6A0830030B83D /* TransactionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F46343E1DA6A0830030B83D /* TransactionsPresenter.swift */; };
+		1F4634411DA6A08E0030B83D /* TransactionsPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4634401DA6A08E0030B83D /* TransactionsPresenterImp.swift */; };
+		1F5B69901DA78EE7002E6530 /* TransactionsTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B698F1DA78EE7002E6530 /* TransactionsTableHeaderView.swift */; };
+		1F5B69921DA78F14002E6530 /* TransactionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B69911DA78F14002E6530 /* TransactionsCell.swift */; };
+		1F5B69941DA7BC24002E6530 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B69931DA7BC24002E6530 /* String.swift */; };
 		1F9CC0541DA256BE0090071A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0531DA256BE0090071A /* AppDelegate.swift */; };
 		1F9CC05B1DA256BE0090071A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F9CC05A1DA256BE0090071A /* Assets.xcassets */; };
 		1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC06A1DA259100090071A /* MainAssembly.swift */; };
@@ -33,6 +40,10 @@
 		1F9CC0831DA281480090071A /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0821DA281480090071A /* UIView.swift */; };
 		1F9CC0851DA28B7F0090071A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0841DA28B7F0090071A /* Constants.swift */; };
 		1F9CC0871DA28B970090071A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CC0861DA28B970090071A /* UIColor.swift */; };
+		1FDA85751DA7CC3D001D1965 /* ReservedFundsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA85711DA7CC3D001D1965 /* ReservedFundsController.swift */; };
+		1FDA85761DA7CC3D001D1965 /* ReservedFundsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA85721DA7CC3D001D1965 /* ReservedFundsPresenter.swift */; };
+		1FDA85771DA7CC3D001D1965 /* ReservedFundsPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA85731DA7CC3D001D1965 /* ReservedFundsPresenterImp.swift */; };
+		1FDA85781DA7CC3D001D1965 /* ReservedFundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA85741DA7CC3D001D1965 /* ReservedFundsView.swift */; };
 		3821BC48B8C082023807C44F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB918D7423B79539B71EE84 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +64,13 @@
 		1F4634331DA653950030B83D /* AvailableFundsTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsTableHeaderView.swift; sourceTree = "<group>"; };
 		1F4634351DA66CFE0030B83D /* AvailableFundsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableFundsCell.swift; sourceTree = "<group>"; };
 		1F4634381DA6895B0030B83D /* AnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		1F46343A1DA6A04E0030B83D /* TransactionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "T\U0010ransactionsController.swift"; sourceTree = "<group>"; };
+		1F46343C1DA6A0790030B83D /* TransactionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsView.swift; sourceTree = "<group>"; };
+		1F46343E1DA6A0830030B83D /* TransactionsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsPresenter.swift; sourceTree = "<group>"; };
+		1F4634401DA6A08E0030B83D /* TransactionsPresenterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsPresenterImp.swift; sourceTree = "<group>"; };
+		1F5B698F1DA78EE7002E6530 /* TransactionsTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsTableHeaderView.swift; sourceTree = "<group>"; };
+		1F5B69911DA78F14002E6530 /* TransactionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsCell.swift; sourceTree = "<group>"; };
+		1F5B69931DA7BC24002E6530 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		1F9CC0501DA256BE0090071A /* NLBKlik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NLBKlik.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9CC0531DA256BE0090071A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F9CC05A1DA256BE0090071A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +85,10 @@
 		1F9CC0821DA281480090071A /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		1F9CC0841DA28B7F0090071A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1F9CC0861DA28B970090071A /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		1FDA85711DA7CC3D001D1965 /* ReservedFundsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservedFundsController.swift; sourceTree = "<group>"; };
+		1FDA85721DA7CC3D001D1965 /* ReservedFundsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservedFundsPresenter.swift; sourceTree = "<group>"; };
+		1FDA85731DA7CC3D001D1965 /* ReservedFundsPresenterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservedFundsPresenterImp.swift; sourceTree = "<group>"; };
+		1FDA85741DA7CC3D001D1965 /* ReservedFundsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservedFundsView.swift; sourceTree = "<group>"; };
 		546CD944586DC46B15B1D12E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		585531AE289A3BF8826ED5EE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6DB918D7423B79539B71EE84 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +134,12 @@
 		1F1486FD1DA4FAAD00D999C0 /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
+				1F46343A1DA6A04E0030B83D /* TransactionsController.swift */,
+				1F46343C1DA6A0790030B83D /* TransactionsView.swift */,
+				1F46343E1DA6A0830030B83D /* TransactionsPresenter.swift */,
+				1F4634401DA6A08E0030B83D /* TransactionsPresenterImp.swift */,
+				1F5B698F1DA78EE7002E6530 /* TransactionsTableHeaderView.swift */,
+				1F5B69911DA78F14002E6530 /* TransactionsCell.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -238,6 +266,10 @@
 		1F9CC06E1DA25D1A0090071A /* ReservedFunds */ = {
 			isa = PBXGroup;
 			children = (
+				1FDA85711DA7CC3D001D1965 /* ReservedFundsController.swift */,
+				1FDA85741DA7CC3D001D1965 /* ReservedFundsView.swift */,
+				1FDA85721DA7CC3D001D1965 /* ReservedFundsPresenter.swift */,
+				1FDA85731DA7CC3D001D1965 /* ReservedFundsPresenterImp.swift */,
 			);
 			path = ReservedFunds;
 			sourceTree = "<group>";
@@ -254,6 +286,7 @@
 			children = (
 				1F9CC0821DA281480090071A /* UIView.swift */,
 				1F9CC0861DA28B970090071A /* UIColor.swift */,
+				1F5B69931DA7BC24002E6530 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -405,21 +438,32 @@
 				1F4634341DA653960030B83D /* AvailableFundsTableHeaderView.swift in Sources */,
 				1F14870C1DA512E500D999C0 /* AvailableFundsPresenter.swift in Sources */,
 				1F9CC0851DA28B7F0090071A /* Constants.swift in Sources */,
+				1FDA85781DA7CC3D001D1965 /* ReservedFundsView.swift in Sources */,
 				1F1486FC1DA4FA6E00D999C0 /* MainController.swift in Sources */,
 				1F166F5C1DA3C07600D7CEAE /* NetworkManager.swift in Sources */,
+				1F46343F1DA6A0830030B83D /* TransactionsPresenter.swift in Sources */,
 				1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */,
+				1FDA85761DA7CC3D001D1965 /* ReservedFundsPresenter.swift in Sources */,
+				1F4634411DA6A08E0030B83D /* TransactionsPresenterImp.swift in Sources */,
 				1F4634361DA66CFE0030B83D /* AvailableFundsCell.swift in Sources */,
 				1F9CC0771DA25DF20090071A /* LoginPresenterImp.swift in Sources */,
 				1F1487041DA5003C00D999C0 /* MenuPresenter.swift in Sources */,
 				1F9CC0711DA25DCC0090071A /* LoginController.swift in Sources */,
+				1FDA85751DA7CC3D001D1965 /* ReservedFundsController.swift in Sources */,
 				1F4634391DA6895B0030B83D /* AnimationView.swift in Sources */,
 				1F1487021DA5003100D999C0 /* MenuView.swift in Sources */,
 				1F9CC0731DA25DD70090071A /* LoginView.swift in Sources */,
 				1F1487001DA5002400D999C0 /* MenuController.swift in Sources */,
 				1F9CC0541DA256BE0090071A /* AppDelegate.swift in Sources */,
+				1F46343B1DA6A04E0030B83D /* TransactionsController.swift in Sources */,
 				1F9CC07D1DA261AF0090071A /* BaseViewController.swift in Sources */,
+				1F5B69921DA78F14002E6530 /* TransactionsCell.swift in Sources */,
+				1F5B69901DA78EE7002E6530 /* TransactionsTableHeaderView.swift in Sources */,
+				1F46343D1DA6A0790030B83D /* TransactionsView.swift in Sources */,
+				1FDA85771DA7CC3D001D1965 /* ReservedFundsPresenterImp.swift in Sources */,
 				1F9CC0751DA25DE90090071A /* LoginPresenter.swift in Sources */,
 				1F9CC07B1DA25F530090071A /* User.swift in Sources */,
+				1F5B69941DA7BC24002E6530 /* String.swift in Sources */,
 				1F14870A1DA512DC00D999C0 /* AvailableFundsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
