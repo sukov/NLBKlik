@@ -13,14 +13,14 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	private var currentPage: Int = 1 {
 		didSet(newVal) {
 			if (newVal > pageCount) {
-				view?.enableInfiniteScroll(false)
+				view?.showNextPageButton(false)
 			}
 		}
 	}
 	private var pageCount: Int? {
 		didSet(newVal) {
 			if (newVal != nil) {
-				view?.enableInfiniteScroll(true)
+				view?.showNextPageButton(true)
 			}
 		}
 	}
@@ -45,7 +45,7 @@ class TransactionsPresenterImp: TransactionsPresenter {
 		}
 	}
 
-	func loadNew() {
+    func loadNextPage() {
 		currentPage += 1
 		if (currentPage <= pageCount) {
 			NetworkManager.sharedInstance.getTransactions({ (items, _, success) in

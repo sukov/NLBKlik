@@ -11,5 +11,5 @@ import Foundation
 protocol TransactionsPresenter {
 	func attachView(view: TransactionsView)
 	func detachView(view: TransactionsView)
-	func loadNew()
+	func loadNextPage()
 }

@@ -10,5 +10,5 @@ import Foundation
 
 @objc protocol TransactionsView {
 	func showItems(items: [[String: String]])
-	func enableInfiniteScroll(shouldEnable: Bool)
+    func showNextPageButton(shouldShow: Bool)
 }
