@@ -57,12 +57,14 @@ class LoginController: BaseViewController, LoginView {
 		super.setupViews()
 
 		view.backgroundColor = UIColor.whiteColor()
-		view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
-
+    
 		scrollView = UIScrollView()
 		scrollView.scrollEnabled = false
+        scrollView.delaysContentTouches = false
+        scrollView.canCancelContentTouches = false
 
 		contentView = UIView()
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
 
 		logoImageView = UIImageView(image: UIImage(named: "NLBLogo"))
 		logoImageView.contentMode = UIViewContentMode.ScaleAspectFit
@@ -196,6 +198,13 @@ class LoginController: BaseViewController, LoginView {
 			make.right.equalTo(autoLoginSwitch.snp_left)
 		}
 
+//        let test = NetworkManager.sharedInstance.tempTest()
+//        view.addSubview(test)
+//        test.snp_makeConstraints { (make) in
+//            make.left.right.bottom.equalTo(self.view)
+//            make.top.equalTo(loginButton.snp_bottom)
+//        }
+        
 	}
 
 	func rememberMeSwitchChangedValue(sender: UISwitch) {

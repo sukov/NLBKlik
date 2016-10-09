@@ -25,16 +25,17 @@ class AvailableFundsController: BaseViewController, AvailableFundsView {
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	deinit {
-		presenter.detachView(self)
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		presenter.attachView(self)
-	}
-
+    
+    deinit {
+        presenter.detachView(self)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        presenter.attachView(self)
+    }
+    
 	override func setupViews() {
 		super.setupViews()
 

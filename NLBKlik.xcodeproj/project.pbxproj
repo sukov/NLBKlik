@@ -45,6 +45,8 @@
 		1FDA85781DA7CC3D001D1965 /* ReservedFundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA85741DA7CC3D001D1965 /* ReservedFundsView.swift */; };
 		3821BC48B8C082023807C44F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB918D7423B79539B71EE84 /* Pods.framework */; };
 		EE073C8F1DA91C0B004E4D78 /* TransactionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE073C8E1DA91C0B004E4D78 /* TransactionsController.swift */; };
+		EE76ADFA1DA988DE0036BED6 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE76ADF91DA988DD0036BED6 /* UILabel.swift */; };
+		EE76ADFC1DA9980A0036BED6 /* TransactionsButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE76ADFB1DA9980A0036BED6 /* TransactionsButtonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +94,8 @@
 		585531AE289A3BF8826ED5EE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6DB918D7423B79539B71EE84 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE073C8E1DA91C0B004E4D78 /* TransactionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsController.swift; sourceTree = "<group>"; };
+		EE76ADF91DA988DD0036BED6 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		EE76ADFB1DA9980A0036BED6 /* TransactionsButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsButtonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,12 +138,13 @@
 		1F1486FD1DA4FAAD00D999C0 /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
+				EE073C8E1DA91C0B004E4D78 /* TransactionsController.swift */,
 				1F46343C1DA6A0790030B83D /* TransactionsView.swift */,
 				1F46343E1DA6A0830030B83D /* TransactionsPresenter.swift */,
 				1F4634401DA6A08E0030B83D /* TransactionsPresenterImp.swift */,
 				1F5B698F1DA78EE7002E6530 /* TransactionsTableHeaderView.swift */,
 				1F5B69911DA78F14002E6530 /* TransactionsCell.swift */,
-				EE073C8E1DA91C0B004E4D78 /* TransactionsController.swift */,
+				EE76ADFB1DA9980A0036BED6 /* TransactionsButtonCell.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -286,6 +291,7 @@
 			children = (
 				1F9CC0821DA281480090071A /* UIView.swift */,
 				1F9CC0861DA28B970090071A /* UIColor.swift */,
+				EE76ADF91DA988DD0036BED6 /* UILabel.swift */,
 				1F5B69931DA7BC24002E6530 /* String.swift */,
 			);
 			path = Extensions;
@@ -433,6 +439,7 @@
 				1F9CC0831DA281480090071A /* UIView.swift in Sources */,
 				1F9CC0871DA28B970090071A /* UIColor.swift in Sources */,
 				1F1487081DA512CC00D999C0 /* AvailableFundsController.swift in Sources */,
+				EE76ADFC1DA9980A0036BED6 /* TransactionsButtonCell.swift in Sources */,
 				1F14870E1DA512F000D999C0 /* AvailableFundsPresenterImp.swift in Sources */,
 				1F1486F71DA4F8C300D999C0 /* SWRevealViewController.m in Sources */,
 				1F4634341DA653960030B83D /* AvailableFundsTableHeaderView.swift in Sources */,
@@ -441,6 +448,7 @@
 				1FDA85781DA7CC3D001D1965 /* ReservedFundsView.swift in Sources */,
 				1F1486FC1DA4FA6E00D999C0 /* MainController.swift in Sources */,
 				1F166F5C1DA3C07600D7CEAE /* NetworkManager.swift in Sources */,
+				EE76ADFA1DA988DE0036BED6 /* UILabel.swift in Sources */,
 				EE073C8F1DA91C0B004E4D78 /* TransactionsController.swift in Sources */,
 				1F46343F1DA6A0830030B83D /* TransactionsPresenter.swift in Sources */,
 				1F9CC06B1DA259100090071A /* MainAssembly.swift in Sources */,

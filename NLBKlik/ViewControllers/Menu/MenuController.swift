@@ -13,11 +13,14 @@ class MenuController: BaseViewController, MenuView {
 	private var items: [[String: String]]?
 	private let cellID = "MenuCell"
 	private var tableView: UITableView!
+    var viewControllers: [UIViewController]
 
 	init(presenter: MenuPresenter) {
 		self.presenter = presenter
+        viewControllers = []
+        
 		super.init()
-	}
+    }
 
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
@@ -29,6 +32,7 @@ class MenuController: BaseViewController, MenuView {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
 		presenter.attachView(self)
 	}
 
@@ -40,6 +44,7 @@ class MenuController: BaseViewController, MenuView {
 		tableView.dataSource = self
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellID)
 		tableView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.1)
+        tableView.alwaysBounceVertical = false
 
 		view.addSubview(tableView)
 	}
@@ -61,13 +66,8 @@ class MenuController: BaseViewController, MenuView {
 
 extension MenuController: UITableViewDelegate {
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		switch indexPath.row {
-		case 0: revealViewController().pushFrontViewController(MainAssembly.sharedInstance.getAvailableFundsController(), animated: true)
-		case 1: revealViewController().pushFrontViewController(MainAssembly.sharedInstance.getTransactionsController(), animated: true)
-		case 2: revealViewController().pushFrontViewController(MainAssembly.sharedInstance.getReservedFundsController(), animated: true)
-		default: break
-		}
-	}
+        revealViewController().pushFrontViewController(viewControllers[indexPath.row], animated: true)
+    }
 }
 
 extension MenuController: UITableViewDataSource {

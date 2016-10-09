@@ -14,7 +14,7 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 	func attachView(view: ReservedFundsView) {
 		if (self.view == nil) {
 			self.view = view
-			NetworkManager.sharedInstance.getTransactions({ (items, pageCount, success) in
+            NetworkManager.sharedInstance.getTransactions(complete: { (items, pageCount, success) in
 				if (success) {
 					view.showItems(items!)
 				}

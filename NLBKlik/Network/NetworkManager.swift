@@ -51,6 +51,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 			complete?(success: true)
 		} else {
 			self.webView.loadRequest(NSURLRequest(URL: NSURL(string: "https://www.nlbklik.com.mk/LoginModule/LoginUP.aspx")!))
+            
 			pageLoadCompleted = {
 				complete?(success: true)
 			}
@@ -78,7 +79,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		logInCompleted = { success in
 			self.timer?.invalidate()
 			if (success) {
-				self.currentPage = .AvailableFunds
+				self.currentPage = .FirstPageAfterLogin
 			}
 			complete(success: success)
 		}
@@ -88,16 +89,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		timer?.invalidate()
 		loadingFinnished?()
 		nextPage = .AvailableFunds
-
-		timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
-
-		if (currentPage != nextPage) {
-			self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_1_a_href').click()")
-			self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_3_Item').click()")
-		} else {
-			timer?.fire()
-		}
-
+        
 		loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .AvailableFunds
@@ -141,23 +133,22 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 				complete(transactionAcc: nil, debitCards: nil, success: false)
 			}
 		}
+        
+        if (currentPage != nextPage) {
+            self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_1_a_href').click()")
+            self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_3_Item').click()")
+            timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
+        } else {
+            loadingFinnished?()
+        }
 	}
 
-	func getTransactions(complete: (items: [[String: String]]?, pageCount: Int?, success: Bool) -> Void) {
+    func getTransactions(loadNextTransactionsPage: Bool = false ,complete: (items: [[String: String]]?, pageCount: Int?, success: Bool) -> Void) {
 		timer?.invalidate()
-		loadingFinnished?()
+        (currentPage != nextPage) ? loadingFinnished?() : ()
 		nextPage = .Transactions
 
-		timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
-
-		if (currentPage != nextPage) {
-			executeJavaScriptFromString("document.getElementById('key_21_a_href').click()")
-			executeJavaScriptFromString("document.getElementById('key_25_Item').click()")
-		} else {
-			timer?.fire()
-		}
-
-		loadingFinnished = {
+			loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .Transactions
 			self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms')")
@@ -172,14 +163,26 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 
 					let amount = self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms').getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[4].getElementsByTagName('span')[0].innerHTML").customTrim()
 
-					items.append([TransactionKeys.date: date, TransactionKeys.desc: desc, TransactionKeys.amount: amount])
+                    if ( desc != "" ) {
+                        items.append([TransactionKeys.date: date, TransactionKeys.desc: desc, TransactionKeys.amount: amount])
+                    }
 				}
-
 				complete(items: items, pageCount: pageCount, success: true)
 			} else {
 				complete(items: nil, pageCount: nil, success: false)
 			}
 		}
+        
+        if (currentPage != nextPage) {
+            executeJavaScriptFromString("document.getElementById('key_21_a_href').click()")
+            executeJavaScriptFromString("document.getElementById('key_25_Item').click()")
+            timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
+        } else if(loadNextTransactionsPage == true) {
+            executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_pager_lbNextPage').click()")
+            timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
+        } else {
+            loadingFinnished?()
+        }
 	}
 
 	func getReservedFunds() {

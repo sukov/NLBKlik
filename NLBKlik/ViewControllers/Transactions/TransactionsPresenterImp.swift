@@ -11,15 +11,15 @@ import Foundation
 class TransactionsPresenterImp: TransactionsPresenter {
 	weak private var view: TransactionsView?
 	private var currentPage: Int = 1 {
-		didSet(newVal) {
-			if (newVal > pageCount) {
+		didSet {
+			if (currentPage >= pageCount) {
 				view?.showNextPageButton(false)
 			}
 		}
 	}
 	private var pageCount: Int? {
-		didSet(newVal) {
-			if (newVal != nil) {
+		didSet {
+			if (pageCount != nil) {
 				view?.showNextPageButton(true)
 			}
 		}
@@ -28,13 +28,12 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	func attachView(view: TransactionsView) {
 		if (self.view == nil) {
 			self.view = view
-			NetworkManager.sharedInstance.getTransactions({ (items, pageCount, success) in
+            NetworkManager.sharedInstance.getTransactions(complete: { (items, pageCount, success) in
 				if (success) {
 					self.pageCount = pageCount
 					view.showItems(items!)
 				}
 			})
-
 		}
 	}
 
@@ -47,8 +46,8 @@ class TransactionsPresenterImp: TransactionsPresenter {
 
     func loadNextPage() {
 		currentPage += 1
-		if (currentPage <= pageCount) {
-			NetworkManager.sharedInstance.getTransactions({ (items, _, success) in
+		if (currentPage < pageCount) {
+            NetworkManager.sharedInstance.getTransactions(true ,complete: { (items, _, success) in
 				if (success) {
 					self.view?.showItems(items!)
 				}

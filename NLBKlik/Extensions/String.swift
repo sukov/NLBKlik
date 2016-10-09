@@ -30,4 +30,8 @@ extension String {
 		let components = self.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		self = components.filter { !$0.isEmpty }.joinWithSeparator(" ")
 	}
+    
+    public func toDigits() -> String {
+        return String(self.characters.filter{ $0 >= "0" && $0 <= "9" })
+    }
 }

@@ -27,6 +27,7 @@ class AvailableFundsCell: UITableViewCell {
 		accountName.font = accountName.font.fontWithSize(AvailableFundsCell.fontSize)
 		accountName.lineBreakMode = NSLineBreakMode.ByWordWrapping
 		accountName.numberOfLines = 0
+        accountName.enableCopyMenu()
 
 		availableFunds = UILabel()
 		availableFunds.font = availableFunds.font.fontWithSize(AvailableFundsCell.fontSize)
