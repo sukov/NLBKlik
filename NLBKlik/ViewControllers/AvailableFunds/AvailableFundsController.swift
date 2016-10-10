@@ -16,6 +16,7 @@ class AvailableFundsController: BaseViewController, AvailableFundsView {
 	private let cellID = "AvailableFundsCell"
 	private let accountsHeaderView = AvailableFundsTableHeaderView(headerName: "Accounts")
 	private let debitCardsHeaderView = AvailableFundsTableHeaderView(headerName: "Debit Cards")
+	private var animationView: AnimationView!
 
 	init(presenter: AvailableFundsPresenter) {
 		self.presenter = presenter
@@ -25,17 +26,17 @@ class AvailableFundsController: BaseViewController, AvailableFundsView {
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-    
-    deinit {
-        presenter.detachView(self)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        presenter.attachView(self)
-    }
-    
+
+	deinit {
+		presenter.detachView(self)
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		presenter.attachView(self)
+	}
+
 	override func setupViews() {
 		super.setupViews()
 
@@ -49,7 +50,10 @@ class AvailableFundsController: BaseViewController, AvailableFundsView {
 		tableView.backgroundColor = UIColor.customGray()
 		tableView.allowsSelection = false
 
+		animationView = AnimationView(frame: UIScreen.mainScreen().bounds)
+
 		view.addSubview(tableView)
+		view.addSubview(animationView)
 	}
 
 	override func setupConstraints() {
@@ -61,18 +65,34 @@ class AvailableFundsController: BaseViewController, AvailableFundsView {
 			make.right.equalTo(self.view).offset(-10)
 			make.bottom.equalTo(self.view)
 		}
+
 	}
-    
-    override func setupNavigationBar() {
-        super.setupNavigationBar()
-       
-        navigationItem.title = "Available funds"
-    }
+
+	override func setupNavigationBar() {
+		super.setupNavigationBar()
+
+		navigationItem.title = "Available funds"
+	}
+
+	override func refresh() {
+		super.refresh()
+		navigationItem.rightBarButtonItem?.enabled = false
+		presenter.refresh()
+	}
+
+	func animate(shouldAnimate: Bool) {
+		animationView.animate(shouldAnimate)
+	}
 
 	func showItems(transactionAcc: [[String: String]], debitCards: [[String: String]]) {
 		self.transactionAcc = transactionAcc
 		self.debitCards = debitCards
 		tableView.reloadData()
+		navigationItem.rightBarButtonItem?.enabled = true
+	}
+
+	func showLoginScreen() {
+		presentViewController(MainAssembly.sharedInstance.getLoginController(), animated: true, completion: nil)
 	}
 }
 

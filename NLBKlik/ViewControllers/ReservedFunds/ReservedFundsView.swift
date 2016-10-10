@@ -9,5 +9,8 @@
 import Foundation
 
 @objc protocol ReservedFundsView {
+	func animate(shouldAnimate: Bool)
 	func showItems(items: [[String: String]])
+	func showNextPageButton(shouldShow: Bool)
+	func showLoginScreen()
 }

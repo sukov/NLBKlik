@@ -19,7 +19,7 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	}
 	private var pageCount: Int? {
 		didSet {
-			if (pageCount != nil) {
+			if (pageCount != nil && pageCount > 1) {
 				view?.showNextPageButton(true)
 			}
 		}
@@ -28,10 +28,16 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	func attachView(view: TransactionsView) {
 		if (self.view == nil) {
 			self.view = view
-            NetworkManager.sharedInstance.getTransactions(complete: { (items, pageCount, success) in
+			guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
+				view.showLoginScreen()
+				return
+			}
+			view.animate(true)
+			NetworkManager.sharedInstance.getTransactions(complete: { (items, pageCount, success) in
 				if (success) {
 					self.pageCount = pageCount
 					view.showItems(items!)
+					view.animate(false)
 				}
 			})
 		}
@@ -44,10 +50,31 @@ class TransactionsPresenterImp: TransactionsPresenter {
 		}
 	}
 
-    func loadNextPage() {
+	func refresh() {
+		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
+			view?.showLoginScreen()
+			return
+		}
+		view?.animate(true)
+		NetworkManager.sharedInstance.reloadWebPage {
+			NetworkManager.sharedInstance.getTransactions(complete: { (items, pageCount, success) in
+				if (success) {
+					self.currentPage = 1
+					self.view?.showItems(items!)
+					self.view?.animate(false)
+				}
+			})
+		}
+	}
+
+	func loadNextPage() {
 		currentPage += 1
-		if (currentPage < pageCount) {
-            NetworkManager.sharedInstance.getTransactions(true ,complete: { (items, _, success) in
+		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
+			view?.showLoginScreen()
+			return
+		}
+		if (currentPage <= pageCount) {
+			NetworkManager.sharedInstance.getTransactions(true, complete: { (items, _, success) in
 				if (success) {
 					self.view?.showItems(items!)
 				}

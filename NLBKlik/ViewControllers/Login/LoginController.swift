@@ -57,14 +57,14 @@ class LoginController: BaseViewController, LoginView {
 		super.setupViews()
 
 		view.backgroundColor = UIColor.whiteColor()
-    
+
 		scrollView = UIScrollView()
 		scrollView.scrollEnabled = false
-        scrollView.delaysContentTouches = false
-        scrollView.canCancelContentTouches = false
+		scrollView.delaysContentTouches = false
+		scrollView.canCancelContentTouches = false
 
 		contentView = UIView()
-        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+		contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
 
 		logoImageView = UIImageView(image: UIImage(named: "NLBLogo"))
 		logoImageView.contentMode = UIViewContentMode.ScaleAspectFit
@@ -78,6 +78,8 @@ class LoginController: BaseViewController, LoginView {
 		usernameTextField.leftView = UIImageView(image: UIImage(named: "User"))
 		usernameTextField.leftViewMode = UITextFieldViewMode.Always
 		usernameTextField.addBorder(edges: .Bottom, colour: UIColor.grayColor().colorWithAlphaComponent(0.7))
+		usernameTextField.autocorrectionType = .No
+		usernameTextField.autocapitalizationType = .None
 		usernameTextField.delegate = self
 
 		passwordTextField = UITextField()
@@ -204,7 +206,7 @@ class LoginController: BaseViewController, LoginView {
 //            make.left.right.bottom.equalTo(self.view)
 //            make.top.equalTo(loginButton.snp_bottom)
 //        }
-        
+
 	}
 
 	func rememberMeSwitchChangedValue(sender: UISwitch) {

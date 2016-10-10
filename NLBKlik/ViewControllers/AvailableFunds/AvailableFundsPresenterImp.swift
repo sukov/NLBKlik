@@ -14,9 +14,11 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 	func attachView(view: AvailableFundsView) {
 		if (self.view == nil) {
 			self.view = view
+			view.animate(true)
 			NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
 				if (success) {
 					view.showItems(transactionAcc!, debitCards: debitCards!)
+					view.animate(false)
 				}
 			})
 		}
@@ -25,6 +27,23 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 	func detachView(view: AvailableFundsView) {
 		if (self.view === view) {
 			self.view = nil
+		}
+	}
+
+	func refresh() {
+		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
+			view?.showLoginScreen()
+			return
+		}
+		view?.animate(true)
+		NetworkManager.sharedInstance.reloadWebPage {
+			NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
+				if (success) {
+					self.view?.showItems(transactionAcc!, debitCards: debitCards!)
+					self.view?.animate(false)
+				}
+			})
+
 		}
 	}
 }

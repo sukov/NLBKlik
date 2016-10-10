@@ -11,4 +11,5 @@ import Foundation
 protocol AvailableFundsPresenter {
 	func attachView(view: AvailableFundsView)
 	func detachView(view: AvailableFundsView)
+	func refresh()
 }

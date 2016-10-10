@@ -5,12 +5,17 @@
 //  Created by WF | Gorjan Shukov on 10/6/16.
 //  Copyright © 2016 WF | Gorjan Shukov. All rights reserved.
 //
+//
 
-class ReservedFundsController: BaseViewController, ReservedFundsView {
+class ReservedFundsController: BaseViewController, ReservedFundsView, TransactionButtonCellProtocol {
 	private var presenter: ReservedFundsPresenter
 	private var items: [[String: String]]?
 	private var tableView: UITableView!
-	private let cellID = "TransactionsCell"
+	private let cellID1 = "TransactionsCell"
+	private let cellID2 = "TransactionsButtonCell"
+	private var showNextPageButton: Bool = false
+	private var hideCellButton: Bool = false
+	private var animationView: AnimationView!
 
 	init(presenter: ReservedFundsPresenter) {
 		self.presenter = presenter
@@ -21,14 +26,14 @@ class ReservedFundsController: BaseViewController, ReservedFundsView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		presenter.attachView(self)
+	deinit {
+		presenter.detachView(self)
 	}
 
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
-		presenter.detachView(self)
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		presenter.attachView(self)
 	}
 
 	override func setupViews() {
@@ -36,15 +41,19 @@ class ReservedFundsController: BaseViewController, ReservedFundsView {
 
 		view.backgroundColor = UIColor.customGray()
 
-		tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
+		tableView = UITableView()
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.registerClass(TransactionsCell.self, forCellReuseIdentifier: cellID)
+		tableView.registerClass(TransactionsCell.self, forCellReuseIdentifier: cellID1)
+		tableView.registerClass(TransactionsButtonCell.self, forCellReuseIdentifier: cellID2)
 		tableView.sectionHeaderHeight = 30
 		tableView.allowsSelection = false
 		tableView.backgroundColor = UIColor.customGray()
 
+		animationView = AnimationView(frame: UIScreen.mainScreen().bounds)
+
 		view.addSubview(tableView)
+		view.addSubview(animationView)
 	}
 
 	override func setupConstraints() {
@@ -61,12 +70,42 @@ class ReservedFundsController: BaseViewController, ReservedFundsView {
 	override func setupNavigationBar() {
 		super.setupNavigationBar()
 
-		navigationItem.title = "Reserved funds"
+		navigationItem.title = "Transactions"
+	}
+
+	override func refresh() {
+		super.refresh()
+		navigationItem.rightBarButtonItem?.enabled = false
+		items = nil
+		presenter.refresh()
 	}
 
 	func showItems(items: [[String: String]]) {
-		self.items = items
+		if (self.items == nil) {
+			self.items = items
+		} else {
+			self.items?.appendContentsOf(items)
+		}
+		hideCellButton = false
 		tableView.reloadData()
+		navigationItem.rightBarButtonItem?.enabled = false
+	}
+
+	func animate(shouldAnimate: Bool) {
+		animationView.animate(shouldAnimate)
+	}
+
+	func showNextPageButton(shouldShow: Bool) {
+		showNextPageButton = shouldShow
+	}
+
+	func nextPageButtonTapped() {
+		presenter.loadNextPage()
+		hideCellButton = true
+	}
+
+	func showLoginScreen() {
+		presentViewController(MainAssembly.sharedInstance.getLoginController(), animated: true, completion: nil)
 	}
 }
 
@@ -75,10 +114,21 @@ extension ReservedFundsController: UITableViewDelegate {
 		return TransactionsTableHeaderView()
 	}
 
+	func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		return UIView()
+	}
+
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		let amountHeight = TransactionsCell.calculateFontHeight((items?[indexPath.row])?[TransactionKeys.amount])
-		let descHeight = TransactionsCell.calculateFontHeight((items?[indexPath.row])?[TransactionKeys.desc])
-		return max(amountHeight, descHeight) + 5
+		let minimumHeight: CGFloat = 47
+
+		if (indexPath.row < items?.count) {
+			let amountHeight = TransactionsCell.calculateFontHeight((items?[indexPath.row])?[TransactionKeys.amount])
+			let descHeight = TransactionsCell.calculateFontHeight((items?[indexPath.row])?[TransactionKeys.desc])
+			let greaterHeight = max(amountHeight + 5, descHeight + 5)
+			return max(greaterHeight, minimumHeight)
+		} else {
+			return minimumHeight
+		}
 	}
 }
 
@@ -89,13 +139,21 @@ extension ReservedFundsController: UITableViewDataSource {
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return items?.count ?? 0
+		return ((items?.count ?? 0) + ((showNextPageButton == true) ? 1 : 0))
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier(cellID) as! TransactionsCell
-		cell.setContent(items?[indexPath.row])
-		return cell
+		if (indexPath.row < items?.count) {
+			let cell = tableView.dequeueReusableCellWithIdentifier(cellID1) as! TransactionsCell
+			cell.setContent(items?[indexPath.row])
+			return cell
+		} else {
+			let cell = tableView.dequeueReusableCellWithIdentifier(cellID2) as! TransactionsButtonCell
+			cell.delegate = self
+			if (hideCellButton) {
+				cell.set()
+			}
+			return cell
+		}
 	}
-
 }

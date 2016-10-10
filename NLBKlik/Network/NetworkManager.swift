@@ -26,6 +26,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 	private var pageLoadCompleted: Optional < () -> Void >
 	private var logInCompleted: Optional < (success: Bool) -> Void >
 	private var loadingFinnished: Optional < () -> Void >
+	private var reloadFinnished: Optional < () -> Void >
 	private var timer: NSTimer?
 
 	override init() {
@@ -51,21 +52,20 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 			complete?(success: true)
 		} else {
 			self.webView.loadRequest(NSURLRequest(URL: NSURL(string: "https://www.nlbklik.com.mk/LoginModule/LoginUP.aspx")!))
-            
+
 			pageLoadCompleted = {
+				self.nextPage = self.currentPage
 				complete?(success: true)
 			}
 		}
 	}
 
-	func reloadWebPage(complete: (success: Bool) -> Void) {
-		currentPage = .Uknown
-		nextPage = .LogIn
-
+	func reloadWebPage(complete: () -> Void) {
 		webView.reload()
-
-		pageLoadCompleted = {
-			complete(success: true)
+		timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(waitForReloadToFinnish), userInfo: nil, repeats: true)
+		reloadFinnished = {
+			self.timer?.invalidate()
+			complete()
 		}
 	}
 
@@ -89,7 +89,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		timer?.invalidate()
 		loadingFinnished?()
 		nextPage = .AvailableFunds
-        
+
 		loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .AvailableFunds
@@ -113,8 +113,6 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 
 						let availableFunds = self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByClassName('amount')[0].getElementsByTagName('strong')[0].innerHTML").customTrim()
 
-						print(self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].getElementsByClassName('amount')[0].getElementsByTagName('strong')[0].innerHTML"))
-
 						transactionAcc.append([AccountKeys.name: accountName, AccountKeys.availableFunds: availableFunds])
 					}
 					else {
@@ -133,26 +131,24 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 				complete(transactionAcc: nil, debitCards: nil, success: false)
 			}
 		}
-        
-        if (currentPage != nextPage) {
-            self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_1_a_href').click()")
-            self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_3_Item').click()")
-            timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
-        } else {
-            loadingFinnished?()
-        }
+
+		if (currentPage != nextPage) {
+			self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_1_a_href').click()")
+			self.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('key_3_Item').click()")
+			timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
+		} else {
+			loadingFinnished?()
+		}
 	}
 
-    func getTransactions(loadNextTransactionsPage: Bool = false ,complete: (items: [[String: String]]?, pageCount: Int?, success: Bool) -> Void) {
+	func getTransactions(loadNextTransactionsPage: Bool = false, complete: (items: [[String: String]]?, pageCount: Int?, success: Bool) -> Void) {
 		timer?.invalidate()
-        (currentPage != nextPage) ? loadingFinnished?() : ()
+		(currentPage != nextPage) ? (loadingFinnished?()) : ()
 		nextPage = .Transactions
 
-			loadingFinnished = {
+		loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .Transactions
-			self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms')")
-
 			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms').getElementsByTagName('tr').length")), pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
 
 				var items = [[String: String]]()
@@ -163,36 +159,66 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 
 					let amount = self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms').getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[4].getElementsByTagName('span')[0].innerHTML").customTrim()
 
-                    if ( desc != "" ) {
-                        items.append([TransactionKeys.date: date, TransactionKeys.desc: desc, TransactionKeys.amount: amount])
-                    }
+					if (desc != "") {
+						items.append([TransactionKeys.date: date, TransactionKeys.desc: desc, TransactionKeys.amount: amount])
+					}
 				}
 				complete(items: items, pageCount: pageCount, success: true)
 			} else {
 				complete(items: nil, pageCount: nil, success: false)
 			}
 		}
-        
-        if (currentPage != nextPage) {
-            executeJavaScriptFromString("document.getElementById('key_21_a_href').click()")
-            executeJavaScriptFromString("document.getElementById('key_25_Item').click()")
-            timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
-        } else if(loadNextTransactionsPage == true) {
-            executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_pager_lbNextPage').click()")
-            timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
-        } else {
-            loadingFinnished?()
-        }
+
+		if (currentPage != nextPage) {
+			executeJavaScriptFromString("document.getElementById('key_21_a_href').click()")
+			executeJavaScriptFromString("document.getElementById('key_25_Item').click()")
+			timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
+		} else if (loadNextTransactionsPage == true) {
+			executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_pager_lbNextPage').click()")
+			timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
+		} else {
+			loadingFinnished?()
+		}
 	}
 
-	func getReservedFunds() {
+	func getReservedFunds(loadNextReservedFundsPage: Bool = false, complete: (items: [[String: String]]?, pageCount: Int?, success: Bool) -> Void) {
+		timer?.invalidate()
+		(currentPage != nextPage) ? (loadingFinnished?()) : ()
 		nextPage = .ReservedFunds
 
-		executeJavaScriptFromString("document.getElementById('key_21_a_href').click()")
-		executeJavaScriptFromString("document.getElementById('key_29_Item').click()")
-
 		loadingFinnished = {
-			self.currentPage = .Transactions
+			self.timer?.invalidate()
+			self.currentPage = .ReservedFunds
+
+			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_gvReserverdFunds').getElementsByTagName('tr').length")), pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
+
+				var items = [[String: String]]()
+				for i in 1...transactionsCount {
+					let date = self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_gvReserverdFunds').getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[0].innerHTML").customTrim()
+
+					let desc = self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_gvReserverdFunds').getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[2].innerHTML").customTrim()
+
+					let amount = self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_gvReserverdFunds').getElementsByTagName('tr')[\(i)].getElementsByTagName('td')[3].innerHTML").customTrim()
+
+					if (desc != "") {
+						items.append([TransactionKeys.date: date, TransactionKeys.desc: desc, TransactionKeys.amount: amount])
+					}
+				}
+				complete(items: items, pageCount: pageCount, success: true)
+			} else {
+				complete(items: nil, pageCount: nil, success: false)
+			}
+		}
+
+		if (currentPage != nextPage) {
+			executeJavaScriptFromString("document.getElementById('key_21_a_href').click()")
+			executeJavaScriptFromString("document.getElementById('key_29_Item').click()")
+			timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
+		} else if (loadNextReservedFundsPage == true) {
+			executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_pager1_lbNextPage').click()")
+			timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(checkIfLoadingIsFinnished), userInfo: nil, repeats: true)
+		} else {
+			loadingFinnished?()
 		}
 	}
 
@@ -202,9 +228,27 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		}
 	}
 
+	@objc private func waitForReloadToFinnish() {
+		if (self.webView.stringByEvaluatingJavaScriptFromString(("document.getElementsByClassName('WaitDialogCls')[0].style.display")) == "none") {
+			reloadFinnished?()
+		}
+	}
+
 	@objc private func checkForLoginErrors() {
 		if (executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ltrMessage').innerHTML") != "") {
 			logInCompleted?(success: false)
+		}
+	}
+
+	func checkIfSessionIsValid() -> Bool {
+		if (executeJavaScriptFromString("document.getElementById('login_container').innerHTML") != "") {
+			loadingFinnished?()
+			currentPage = .Uknown
+			nextPage = .LogIn
+			webView.reload()
+			return false
+		} else {
+			return true
 		}
 	}
 

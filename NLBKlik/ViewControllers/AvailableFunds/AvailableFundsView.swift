@@ -9,5 +9,7 @@
 import Foundation
 
 @objc protocol AvailableFundsView {
+	func animate(shouldAnimate: Bool)
 	func showItems(transactionAcc: [[String: String]], debitCards: [[String: String]])
+	func showLoginScreen()
 }

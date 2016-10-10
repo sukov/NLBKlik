@@ -9,6 +9,8 @@
 import Foundation
 
 @objc protocol TransactionsView {
+	func animate(shouldAnimate: Bool)
 	func showItems(items: [[String: String]])
-    func showNextPageButton(shouldShow: Bool)
+	func showNextPageButton(shouldShow: Bool)
+	func showLoginScreen()
 }

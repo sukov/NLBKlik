@@ -11,4 +11,6 @@ import Foundation
 protocol ReservedFundsPresenter {
 	func attachView(view: ReservedFundsView)
 	func detachView(view: ReservedFundsView)
+	func refresh()
+	func loadNextPage()
 }

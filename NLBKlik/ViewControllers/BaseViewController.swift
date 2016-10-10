@@ -9,6 +9,7 @@
 import UIKit
 
 class BaseViewController: UIViewController {
+	let refreshBtn = UIButton()
 
 	init() {
 		super.init(nibName: nil, bundle: nil)
@@ -34,6 +35,8 @@ class BaseViewController: UIViewController {
 	}
 
 	func setupNavigationBar() {
+		navigationController?.navigationBar.barTintColor = UIColor.navBarGray()
+
 		let revealBtn = UIButton()
 		revealBtn.setImage(UIImage(named: "RevealIcon"), forState: .Normal)
 		revealBtn.frame = CGRectMake(0, 0, 30, 30)
@@ -43,5 +46,16 @@ class BaseViewController: UIViewController {
 		let revealController = revealViewController()
 		revealBtn.addTarget(revealController, action: #selector(revealController.revealToggle(_:)), forControlEvents: .TouchUpInside)
 		navigationController?.navigationBar.translucent = false
+
+		refreshBtn.setImage(UIImage(named: "RefreshIcon"), forState: .Normal)
+		refreshBtn.frame = CGRectMake(0, 0, 30, 30)
+		let refreshBarButton = UIBarButtonItem()
+		refreshBarButton.customView = refreshBtn
+		navigationItem.rightBarButtonItem = refreshBarButton
+		refreshBtn.addTarget(self, action: #selector(refresh), forControlEvents: .TouchUpInside)
+	}
+
+	func refresh() {
+
 	}
 }
