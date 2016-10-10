@@ -47,7 +47,7 @@ class ReservedFundsController: BaseViewController, ReservedFundsView, Transactio
 		tableView.registerClass(TransactionsCell.self, forCellReuseIdentifier: cellID1)
 		tableView.registerClass(TransactionsButtonCell.self, forCellReuseIdentifier: cellID2)
 		tableView.sectionHeaderHeight = 30
-		tableView.sectionFooterHeight = 1
+        tableView.sectionFooterHeight = 1
 		tableView.allowsSelection = false
 		tableView.backgroundColor = UIColor.customGray()
 

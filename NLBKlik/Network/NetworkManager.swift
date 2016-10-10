@@ -24,7 +24,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 	private var currentPage: Page = .Uknown
 	private var nextPage: Page = .LogIn
 	private var pageLoadCompleted: Optional < () -> Void >
-	private var logInCompleted: Optional < (success: Bool) -> Void >
+	private var logInCompleted: Optional < ( success: Bool) -> Void >
 	private var loadingFinnished: Optional < () -> Void >
 	private var reloadFinnished: Optional < () -> Void >
 	private var timer: NSTimer?
@@ -149,7 +149,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .Transactions
-			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms').getElementsByTagName('tr').length")), pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
+			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms').getElementsByTagName('tr').length")), let pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
 
 				var items = [[String: String]]()
 				for i in 1...transactionsCount {
@@ -181,7 +181,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		}
 	}
 
-	func getReservedFunds(loadNextReservedFundsPage: Bool = false, complete: (items: [[String: String]]?, pageCount: Int?, success: Bool) -> Void) {
+	func getReservedFunds(loadNextReservedFundsPage: Bool = false, complete: ( items: [[String: String]]?, pageCount: Int?, success: Bool) -> Void) {
 		timer?.invalidate()
 		(currentPage != nextPage) ? (loadingFinnished?()) : ()
 		nextPage = .ReservedFunds
@@ -190,7 +190,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 			self.timer?.invalidate()
 			self.currentPage = .ReservedFunds
 
-			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_gvReserverdFunds').getElementsByTagName('tr').length")), pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
+			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_gvReserverdFunds').getElementsByTagName('tr').length")), let pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
 
 				var items = [[String: String]]()
 				for i in 1...transactionsCount {
