@@ -37,8 +37,8 @@ class TransactionsPresenterImp: TransactionsPresenter {
 				if (success) {
 					self.pageCount = pageCount
 					view.showItems(items!)
-					view.animate(false)
 				}
+                view.animate(false)
 			})
 		}
 	}
@@ -61,8 +61,8 @@ class TransactionsPresenterImp: TransactionsPresenter {
 				if (success) {
 					self.currentPage = 1
 					self.view?.showItems(items!)
-					self.view?.animate(false)
 				}
+                self.view?.animate(false)
 			})
 		}
 	}

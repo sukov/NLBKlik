@@ -71,7 +71,7 @@ class ReservedFundsController: BaseViewController, ReservedFundsView, Transactio
 	override func setupNavigationBar() {
 		super.setupNavigationBar()
 
-		navigationItem.title = "Transactions"
+		navigationItem.title = "Reserved funds"
 	}
 
 	override func refresh() {

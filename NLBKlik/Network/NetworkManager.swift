@@ -149,6 +149,15 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .Transactions
+            
+            let emptyData = self.executeJavaScriptFromString("document.getElementsByClassName('EmptyDataTemplate')[0].innerHTML")
+            
+            if(emptyData != "") {
+                let items = [[TransactionKeys.desc: emptyData.customTrim()]]
+                complete(items: items,pageCount: 1, success: true)
+                return
+            }
+            
 			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms').getElementsByTagName('tr').length")), pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
 
 				var items = [[String: String]]()
@@ -189,7 +198,15 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .ReservedFunds
-
+            
+            let emptyData = self.executeJavaScriptFromString("document.getElementsByClassName('EmptyDataTemplate')[0].innerHTML")
+            
+            if(emptyData != "") {
+                let items = [[TransactionKeys.desc: emptyData.customTrim()]]
+                complete(items: items,pageCount: 1, success: true)
+                return
+            }
+            
 			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_gvReserverdFunds').getElementsByTagName('tr').length")), pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
 
 				var items = [[String: String]]()

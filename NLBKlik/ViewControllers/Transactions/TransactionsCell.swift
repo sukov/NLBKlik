@@ -86,7 +86,7 @@ class TransactionsCell: UITableViewCell {
 		}
 
 		let width: CGFloat = UIScreen.mainScreen().bounds.width - (((UIScreen.mainScreen().bounds.width - 10) / 3) + 90)
-		let maxLineCharacters = (width / fontSize) * 1.95
+		let maxLineCharacters = (width / fontSize) * 1.55
 		let fontHeight = fontSize + 7
 		return ceil(CGFloat(text!.characters.count) / maxLineCharacters) * fontHeight
 	}
