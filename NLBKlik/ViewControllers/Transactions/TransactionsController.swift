@@ -104,9 +104,28 @@ class TransactionsController: BaseViewController, TransactionsView, TransactionB
 		hideCellButton = true
 	}
 
+    func resetButtons() {
+        navigationItem.rightBarButtonItem?.enabled = true
+        hideCellButton = false
+    }
+    
 	func showLoginScreen() {
 		presentViewController(MainAssembly.sharedInstance.getLoginController(), animated: true, completion: nil)
 	}
+    
+    func showConnectionError() {
+        let alert = UIAlertController(title: "No internet connection available.", message: "Open Settings?", preferredStyle: UIAlertControllerStyle.Alert)
+        let openSettingsAction = UIAlertAction(title: "Settings", style: .Default) { (alert) in
+            UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=ROOT")!)
+            // prefs:root=General&path=Music
+        }
+        let defaultAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+        alert.addAction(openSettingsAction)
+        alert.addAction(defaultAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+        resetButtons()
+    }
 }
 
 extension TransactionsController: UITableViewDelegate {

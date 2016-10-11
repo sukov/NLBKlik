@@ -12,5 +12,6 @@ import Foundation
 	func setContent(user: User)
 	func animate(shouldAnimate animate: Bool)
 	func showNextScreen()
-	func showErrorAlert()
+	func showLoginError()
+    func showConnectionError()
 }

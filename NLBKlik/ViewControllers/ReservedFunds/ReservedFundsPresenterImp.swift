@@ -28,6 +28,9 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 	func attachView(view: ReservedFundsView) {
 		if (self.view == nil) {
 			self.view = view
+            guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+                return
+            }
 			guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 				view.showLoginScreen()
 				return
@@ -51,6 +54,10 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 	}
 
 	func refresh() {
+        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+            view?.showConnectionError()
+            return
+        }
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
 			return

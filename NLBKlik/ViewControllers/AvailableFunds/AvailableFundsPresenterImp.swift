@@ -12,6 +12,10 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 	weak private var view: AvailableFundsView?
 
 	func attachView(view: AvailableFundsView) {
+        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+            return
+        }
+        
 		if (self.view == nil) {
 			self.view = view
 			view.animate(true)
@@ -31,6 +35,11 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 	}
 
 	func refresh() {
+        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+            view?.showConnectionError()
+            return
+        }
+        
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
 			return

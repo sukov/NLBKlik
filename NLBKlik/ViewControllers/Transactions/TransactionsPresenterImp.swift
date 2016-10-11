@@ -28,6 +28,11 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	func attachView(view: TransactionsView) {
 		if (self.view == nil) {
 			self.view = view
+            
+            guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+                return
+            }
+            
 			guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 				view.showLoginScreen()
 				return
@@ -51,6 +56,11 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	}
 
 	func refresh() {
+        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+            view?.showConnectionError()
+            return
+        }
+        
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
 			return
@@ -68,11 +78,16 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	}
 
 	func loadNextPage() {
-		currentPage += 1
+        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+            view?.showConnectionError()
+            return
+        }
+		
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
 			return
 		}
+        currentPage += 1
 		if (currentPage <= pageCount) {
 			NetworkManager.sharedInstance.getTransactions(true, complete: { (items, _, success) in
 				if (success) {

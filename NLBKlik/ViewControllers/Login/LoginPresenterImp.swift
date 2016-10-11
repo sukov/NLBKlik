@@ -32,6 +32,11 @@ class LoginPresenterImp: LoginPresenter {
 	}
 
 	func login(userData: [String: AnyObject]) {
+        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+            view?.showConnectionError()
+            return
+        }
+        
 		let username = userData[UserDataKeys.username] as? String ?? ""
 		let password = userData[UserDataKeys.password] as? String ?? ""
 
@@ -56,7 +61,7 @@ class LoginPresenterImp: LoginPresenter {
 
 		} else {
 			view?.animate(shouldAnimate: false)
-			view?.showErrorAlert()
+			view?.showLoginError()
 		}
 	}
 

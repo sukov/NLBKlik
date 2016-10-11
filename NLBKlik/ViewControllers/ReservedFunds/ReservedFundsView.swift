@@ -13,4 +13,6 @@ import Foundation
 	func showItems(items: [[String: String]])
 	func showNextPageButton(shouldShow: Bool)
 	func showLoginScreen()
+    func showConnectionError()
+    func resetButtons()
 }

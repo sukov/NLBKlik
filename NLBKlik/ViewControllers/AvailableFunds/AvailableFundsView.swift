@@ -12,4 +12,6 @@ import Foundation
 	func animate(shouldAnimate: Bool)
 	func showItems(transactionAcc: [[String: String]], debitCards: [[String: String]])
 	func showLoginScreen()
+    func showConnectionError()
+    func resetButtons()
 }
