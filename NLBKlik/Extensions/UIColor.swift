@@ -17,8 +17,4 @@ extension UIColor {
 	public class func customGray() -> UIColor {
 		return UIColor(red: 240 / 255, green: 240 / 255, blue: 241 / 255, alpha: 1.0)
 	}
-
-	public class func navBarGray() -> UIColor {
-		return UIColor(red: 220 / 255, green: 220 / 255, blue: 220 / 255, alpha: 1.0)
-	}
 }
