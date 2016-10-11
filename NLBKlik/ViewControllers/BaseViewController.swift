@@ -35,8 +35,6 @@ class BaseViewController: UIViewController {
 	}
 
 	func setupNavigationBar() {
-		navigationController?.navigationBar.barTintColor = UIColor.navBarGray()
-
 		let revealBtn = UIButton()
 		revealBtn.setImage(UIImage(named: "RevealIcon"), forState: .Normal)
 		revealBtn.frame = CGRectMake(0, 0, 30, 30)
