@@ -46,7 +46,7 @@ class TransactionsController: BaseViewController, TransactionsView, TransactionB
 		tableView.registerClass(TransactionsCell.self, forCellReuseIdentifier: cellID1)
 		tableView.registerClass(TransactionsButtonCell.self, forCellReuseIdentifier: cellID2)
 		tableView.sectionHeaderHeight = 30
-        tableView.sectionFooterHeight = 1
+		tableView.sectionFooterHeight = 1
 		tableView.allowsSelection = false
 		tableView.backgroundColor = UIColor.customGray()
 
@@ -76,7 +76,9 @@ class TransactionsController: BaseViewController, TransactionsView, TransactionB
 	override func refresh() {
 		super.refresh()
 		navigationItem.rightBarButtonItem?.enabled = false
-		items = nil
+		if (NetworkManager.sharedInstance.isConnectedToNetwork()) {
+			items = nil
+		}
 		presenter.refresh()
 	}
 
@@ -90,6 +92,7 @@ class TransactionsController: BaseViewController, TransactionsView, TransactionB
 		} else {
 			self.items?.appendContentsOf(items)
 		}
+
 		hideCellButton = false
 		tableView.reloadData()
 		navigationItem.rightBarButtonItem?.enabled = true
@@ -100,32 +103,33 @@ class TransactionsController: BaseViewController, TransactionsView, TransactionB
 	}
 
 	func nextPageButtonTapped() {
-		presenter.loadNextPage()
 		hideCellButton = true
+		presenter.loadNextPage()
 	}
 
-    func resetButtons() {
-        navigationItem.rightBarButtonItem?.enabled = true
-        hideCellButton = false
-    }
-    
+	func resetButtons() {
+		navigationItem.rightBarButtonItem?.enabled = true
+		hideCellButton = false
+		tableView.reloadData()
+	}
+
 	func showLoginScreen() {
 		presentViewController(MainAssembly.sharedInstance.getLoginController(), animated: true, completion: nil)
 	}
-    
-    func showConnectionError() {
-        let alert = UIAlertController(title: "No internet connection available.", message: "Open Settings?", preferredStyle: UIAlertControllerStyle.Alert)
-        let openSettingsAction = UIAlertAction(title: "Settings", style: .Default) { (alert) in
-            UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=ROOT")!)
-            // prefs:root=General&path=Music
-        }
-        let defaultAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-        alert.addAction(openSettingsAction)
-        alert.addAction(defaultAction)
-        
-        presentViewController(alert, animated: true, completion: nil)
-        resetButtons()
-    }
+
+	func showConnectionError() {
+		let alert = UIAlertController(title: "No internet connection available.", message: "Open Settings?", preferredStyle: UIAlertControllerStyle.Alert)
+		let openSettingsAction = UIAlertAction(title: "Settings", style: .Default) { (alert) in
+			UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=ROOT")!)
+			// prefs:root=General&path=Music
+		}
+		let defaultAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+		alert.addAction(openSettingsAction)
+		alert.addAction(defaultAction)
+
+		presentViewController(alert, animated: true, completion: nil)
+		resetButtons()
+	}
 }
 
 extension TransactionsController: UITableViewDelegate {
