@@ -69,7 +69,10 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 					self.currentPage = 1
                     self.pageCount = pageCount
 					self.view?.showItems(items!)
-				}
+                } else {
+                    self.view?.showNextPageButton(false)
+                    self.view?.resetButtons()
+                }
 				self.view?.animate(false)
 			})
 		}
