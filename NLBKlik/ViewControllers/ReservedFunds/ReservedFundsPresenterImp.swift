@@ -40,9 +40,6 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 				if (success) {
 					self.pageCount = pageCount
 					view.showItems(items!)
-				} else {
-					NetworkManager.sharedInstance.reset()
-					view.showLoginScreen()
 				}
 				view.animate(false)
 			})
@@ -66,16 +63,15 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 			return
 		}
 		view?.animate(true)
-		NetworkManager.sharedInstance.getReservedFunds(complete: { (items, pageCount, success) in
-			if (success) {
-				self.currentPage = 1
-				self.view?.showItems(items!)
-			} else {
-				NetworkManager.sharedInstance.reset()
-				self.view?.showLoginScreen()
-			}
-			self.view?.animate(false)
-		})
+		NetworkManager.sharedInstance.reloadWebPage {
+			NetworkManager.sharedInstance.getReservedFunds(complete: { (items, pageCount, success) in
+				if (success) {
+					self.currentPage = 1
+					self.view?.showItems(items!)
+				}
+				self.view?.animate(false)
+			})
+		}
 	}
 
 	func loadNextPage() {
@@ -88,9 +84,6 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 			NetworkManager.sharedInstance.getReservedFunds(true, complete: { (items, _, success) in
 				if (success) {
 					self.view?.showItems(items!)
-				} else {
-					NetworkManager.sharedInstance.reset()
-					self.view?.showLoginScreen()
 				}
 			})
 		}

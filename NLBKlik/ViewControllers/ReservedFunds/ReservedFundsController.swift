@@ -91,7 +91,7 @@ class ReservedFundsController: BaseViewController, ReservedFundsView, Transactio
 		}
 		hideCellButton = false
 		tableView.reloadData()
-		navigationItem.rightBarButtonItem?.enabled = false
+		navigationItem.rightBarButtonItem?.enabled = true
 	}
 
 	func animate(shouldAnimate: Bool) {

@@ -42,9 +42,6 @@ class TransactionsPresenterImp: TransactionsPresenter {
 				if (success) {
 					self.pageCount = pageCount
 					view.showItems(items!)
-				} else {
-					NetworkManager.sharedInstance.reset()
-					view.showLoginScreen()
 				}
 				view.animate(false)
 			})
@@ -74,9 +71,6 @@ class TransactionsPresenterImp: TransactionsPresenter {
 				if (success) {
 					self.currentPage = 1
 					self.view?.showItems(items!)
-				} else {
-					NetworkManager.sharedInstance.reset()
-					self.view?.showLoginScreen()
 				}
 				self.view?.animate(false)
 			})
@@ -98,9 +92,6 @@ class TransactionsPresenterImp: TransactionsPresenter {
 			NetworkManager.sharedInstance.getTransactions(true, complete: { (items, _, success) in
 				if (success) {
 					self.view?.showItems(items!)
-				} else {
-					NetworkManager.sharedInstance.reset()
-					self.view?.showLoginScreen()
 				}
 			})
 		}

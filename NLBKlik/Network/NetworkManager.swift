@@ -275,7 +275,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 	}
 
 	func checkIfSessionIsValid() -> Bool {
-		if (executeJavaScriptFromString("document.getElementById('login_container').innerHTML") != "") {
+		if (executeJavaScriptFromString("document.getElementById('NavigationTabStrip_MAIN_HOLDER').innerHTML") == "") {
 			loadingFinnished?()
 			currentPage = .Uknown
 			nextPage = .LogIn

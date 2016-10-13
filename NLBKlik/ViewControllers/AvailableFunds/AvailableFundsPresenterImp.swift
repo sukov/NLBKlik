@@ -22,8 +22,6 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 			NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
 				if (success) {
 					view.showItems(transactionAcc!, debitCards: debitCards!)
-				} else {
-					view.showLoginScreen()
 				}
 				view.animate(false)
 			})
@@ -51,9 +49,6 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 			NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
 				if (success) {
 					self.view?.showItems(transactionAcc!, debitCards: debitCards!)
-				} else {
-					NetworkManager.sharedInstance.reset()
-					self.view?.showLoginScreen()
 				}
 				self.view?.animate(false)
 			})
