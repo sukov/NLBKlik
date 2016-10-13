@@ -70,6 +70,7 @@ class TransactionsPresenterImp: TransactionsPresenter {
 			NetworkManager.sharedInstance.getTransactions(complete: { (items, pageCount, success) in
 				if (success) {
 					self.currentPage = 1
+                    self.pageCount = pageCount
 					self.view?.showItems(items!)
 				}
 				self.view?.animate(false)
