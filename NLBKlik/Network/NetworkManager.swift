@@ -150,15 +150,15 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .Transactions
-            
-            let emptyData = self.executeJavaScriptFromString("document.getElementsByClassName('EmptyDataTemplate')[0].innerHTML")
-            
-            if(emptyData != "") {
-                let items = [[TransactionKeys.desc: emptyData.customTrim()]]
-                complete(items: items,pageCount: 1, success: true)
-                return
-            }
-            
+
+			let emptyData = self.executeJavaScriptFromString("document.getElementsByClassName('EmptyDataTemplate')[0].innerHTML")
+
+			if (emptyData != "") {
+				let items = [[TransactionKeys.desc: emptyData.customTrim()]]
+				complete(items: items, pageCount: 1, success: true)
+				return
+			}
+
 			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl01_gvCustoms').getElementsByTagName('tr').length")), pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
 
 				var items = [[String: String]]()
@@ -199,15 +199,15 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		loadingFinnished = {
 			self.timer?.invalidate()
 			self.currentPage = .ReservedFunds
-            
-            let emptyData = self.executeJavaScriptFromString("document.getElementsByClassName('EmptyDataTemplate')[0].innerHTML")
-            
-            if(emptyData != "") {
-                let items = [[TransactionKeys.desc: emptyData.customTrim()]]
-                complete(items: items,pageCount: 1, success: true)
-                return
-            }
-            
+
+			let emptyData = self.executeJavaScriptFromString("document.getElementsByClassName('EmptyDataTemplate')[0].innerHTML")
+
+			if (emptyData != "") {
+				let items = [[TransactionKeys.desc: emptyData.customTrim()]]
+				complete(items: items, pageCount: 1, success: true)
+				return
+			}
+
 			if let transactionsCount = Int(self.executeJavaScriptFromString("document.getElementById('ctl00_DefaultContent_ctl00_gvReserverdFunds').getElementsByTagName('tr').length")), pageCount = Int(self.executeJavaScriptFromString("document.getElementsByClassName('pager_links')[0].innerHTML").customTrim().characters.split { $0 == " " }.map(String.init)[3]) {
 
 				var items = [[String: String]]()
@@ -239,23 +239,22 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 			loadingFinnished?()
 		}
 	}
-    
-    func isConnectedToNetwork() -> Bool {
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
-        }
-        var flags = SCNetworkReachabilityFlags()
-        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
-            return false
-        }
-        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
-        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
-        return (isReachable && !needsConnection)
-    }
 
+	func isConnectedToNetwork() -> Bool {
+		var zeroAddress = sockaddr_in()
+		zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+		zeroAddress.sin_family = sa_family_t(AF_INET)
+		let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
+			SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+		}
+		var flags = SCNetworkReachabilityFlags()
+		if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+			return false
+		}
+		let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+		let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+		return (isReachable && !needsConnection)
+	}
 
 	@objc private func checkIfLoadingIsFinnished() {
 		if (self.webView.stringByEvaluatingJavaScriptFromString(("document.getElementsByClassName('WaitDialogCls')[0].style.display")) == "none") {
@@ -285,6 +284,11 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 		} else {
 			return true
 		}
+	}
+
+	func reset() {
+		currentPage = .Uknown
+		nextPage = .LogIn
 	}
 
 	private func executeJavaScriptFromString(string: String) -> String {

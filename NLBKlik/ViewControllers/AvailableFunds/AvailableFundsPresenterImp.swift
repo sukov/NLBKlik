@@ -12,18 +12,20 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 	weak private var view: AvailableFundsView?
 
 	func attachView(view: AvailableFundsView) {
-        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
-            return
-        }
-        
+		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+			return
+		}
+
 		if (self.view == nil) {
 			self.view = view
 			view.animate(true)
 			NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
 				if (success) {
 					view.showItems(transactionAcc!, debitCards: debitCards!)
+				} else {
+					view.showLoginScreen()
 				}
-                view.animate(false)
+				view.animate(false)
 			})
 		}
 	}
@@ -35,11 +37,11 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 	}
 
 	func refresh() {
-        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
-            view?.showConnectionError()
-            return
-        }
-        
+		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+			view?.showConnectionError()
+			return
+		}
+
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
 			return
@@ -49,8 +51,11 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 			NetworkManager.sharedInstance.getAvailableFunds({ (transactionAcc, debitCards, success) in
 				if (success) {
 					self.view?.showItems(transactionAcc!, debitCards: debitCards!)
+				} else {
+					NetworkManager.sharedInstance.reset()
+					self.view?.showLoginScreen()
 				}
-                self.view?.animate(false)
+				self.view?.animate(false)
 			})
 
 		}

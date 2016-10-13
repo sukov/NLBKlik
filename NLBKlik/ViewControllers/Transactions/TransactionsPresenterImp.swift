@@ -28,11 +28,11 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	func attachView(view: TransactionsView) {
 		if (self.view == nil) {
 			self.view = view
-            
-            guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
-                return
-            }
-            
+
+			guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+				return
+			}
+
 			guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 				view.showLoginScreen()
 				return
@@ -42,8 +42,11 @@ class TransactionsPresenterImp: TransactionsPresenter {
 				if (success) {
 					self.pageCount = pageCount
 					view.showItems(items!)
+				} else {
+					NetworkManager.sharedInstance.reset()
+					view.showLoginScreen()
 				}
-                view.animate(false)
+				view.animate(false)
 			})
 		}
 	}
@@ -56,11 +59,11 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	}
 
 	func refresh() {
-        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
-            view?.showConnectionError()
-            return
-        }
-        
+		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+			view?.showConnectionError()
+			return
+		}
+
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
 			return
@@ -71,27 +74,33 @@ class TransactionsPresenterImp: TransactionsPresenter {
 				if (success) {
 					self.currentPage = 1
 					self.view?.showItems(items!)
+				} else {
+					NetworkManager.sharedInstance.reset()
+					self.view?.showLoginScreen()
 				}
-                self.view?.animate(false)
+				self.view?.animate(false)
 			})
 		}
 	}
 
 	func loadNextPage() {
-        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
-            view?.showConnectionError()
-            return
-        }
-		
+		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+			view?.showConnectionError()
+			return
+		}
+
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
 			return
 		}
-        currentPage += 1
+		currentPage += 1
 		if (currentPage <= pageCount) {
 			NetworkManager.sharedInstance.getTransactions(true, complete: { (items, _, success) in
 				if (success) {
 					self.view?.showItems(items!)
+				} else {
+					NetworkManager.sharedInstance.reset()
+					self.view?.showLoginScreen()
 				}
 			})
 		}

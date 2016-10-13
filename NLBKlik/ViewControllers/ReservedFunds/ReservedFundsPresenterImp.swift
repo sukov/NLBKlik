@@ -28,9 +28,9 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 	func attachView(view: ReservedFundsView) {
 		if (self.view == nil) {
 			self.view = view
-            guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
-                return
-            }
+			guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+				return
+			}
 			guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 				view.showLoginScreen()
 				return
@@ -40,8 +40,11 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 				if (success) {
 					self.pageCount = pageCount
 					view.showItems(items!)
+				} else {
+					NetworkManager.sharedInstance.reset()
+					view.showLoginScreen()
 				}
-                view.animate(false)
+				view.animate(false)
 			})
 		}
 	}
@@ -54,10 +57,10 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 	}
 
 	func refresh() {
-        guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
-            view?.showConnectionError()
-            return
-        }
+		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
+			view?.showConnectionError()
+			return
+		}
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
 			return
@@ -67,8 +70,11 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 			if (success) {
 				self.currentPage = 1
 				self.view?.showItems(items!)
+			} else {
+				NetworkManager.sharedInstance.reset()
+				self.view?.showLoginScreen()
 			}
-            self.view?.animate(false)
+			self.view?.animate(false)
 		})
 	}
 
@@ -82,6 +88,9 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 			NetworkManager.sharedInstance.getReservedFunds(true, complete: { (items, _, success) in
 				if (success) {
 					self.view?.showItems(items!)
+				} else {
+					NetworkManager.sharedInstance.reset()
+					self.view?.showLoginScreen()
 				}
 			})
 		}
