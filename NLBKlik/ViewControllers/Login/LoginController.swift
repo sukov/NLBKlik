@@ -253,27 +253,21 @@ class LoginController: BaseViewController, LoginView {
 	}
 
 	func showLoginError() {
-		let alert = UIAlertController(title: "Login error",
-			message: "Please fill username and password fields with valid data",
-			preferredStyle: UIAlertControllerStyle.Alert)
-
-		let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-		alert.addAction(defaultAction)
-		presentViewController(alert, animated: true, completion: nil)
+		presentViewController(AlertFactory.loginError(), animated: true, completion: nil)
 	}
-    
-    func showConnectionError() {
-            let alert = UIAlertController(title: "No internet connection available.", message: "Open Settings?", preferredStyle: UIAlertControllerStyle.Alert)
-            let openSettingsAction = UIAlertAction(title: "Settings", style: .Default) { (alert) in
-                UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=ROOT")!)
-                // prefs:root=General&path=Music
-            }
-            let defaultAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-            alert.addAction(openSettingsAction)
-            alert.addAction(defaultAction)
-        
-        presentViewController(alert, animated: true, completion: nil)
-    }
+
+	func showConnectionError() {
+		let iOSVerzion = NSProcessInfo().operatingSystemVersion.majorVersion
+
+		if (iOSVerzion <= 9) {
+			presentViewController(AlertFactory.connectionError(), animated: true, completion: nil)
+		} else {
+			loginButton.userInteractionEnabled = false
+			AlertFactory.connectionErrorIOS10 {
+				self.loginButton.userInteractionEnabled = true
+			}
+		}
+	}
 }
 
 extension LoginController: UITextFieldDelegate {

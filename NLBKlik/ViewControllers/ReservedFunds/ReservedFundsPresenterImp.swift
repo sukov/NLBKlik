@@ -8,8 +8,8 @@
 
 import Foundation
 
-class ReservedFundsPresenterImp: ReservedFundsPresenter {
-	weak private var view: ReservedFundsView?
+class ReservedFundsPresenterImp: TransactionsPresenter {
+	weak private var view: TransactionsView?
 	private var currentPage: Int = 1 {
 		didSet {
 			if (currentPage >= pageCount) {
@@ -25,9 +25,11 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 		}
 	}
 
-	func attachView(view: ReservedFundsView) {
+	func attachView(view: TransactionsView) {
 		if (self.view == nil) {
 			self.view = view
+			view.navigationBarTitle("Reserved funds")
+
 			guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
 				return
 			}
@@ -46,7 +48,7 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 		}
 	}
 
-	func detachView(view: ReservedFundsView) {
+	func detachView(view: TransactionsView) {
 		if (view === view) {
 			self.view = nil
 			pageCount = nil
@@ -67,12 +69,12 @@ class ReservedFundsPresenterImp: ReservedFundsPresenter {
 			NetworkManager.sharedInstance.getReservedFunds(complete: { (items, pageCount, success) in
 				if (success) {
 					self.currentPage = 1
-                    self.pageCount = pageCount
+					self.pageCount = pageCount
 					self.view?.showItems(items!)
-                } else {
-                    self.view?.showNextPageButton(false)
-                    self.view?.resetButtons()
-                }
+				} else {
+					self.view?.showNextPageButton(false)
+					self.view?.resetButtons()
+				}
 				self.view?.animate(false)
 			})
 		}

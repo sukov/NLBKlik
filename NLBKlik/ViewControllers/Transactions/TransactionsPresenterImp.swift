@@ -28,6 +28,7 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	func attachView(view: TransactionsView) {
 		if (self.view == nil) {
 			self.view = view
+			view.navigationBarTitle("Transactions")
 
 			guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
 				return
@@ -70,12 +71,12 @@ class TransactionsPresenterImp: TransactionsPresenter {
 			NetworkManager.sharedInstance.getTransactions(complete: { (items, pageCount, success) in
 				if (success) {
 					self.currentPage = 1
-                    self.pageCount = pageCount
+					self.pageCount = pageCount
 					self.view?.showItems(items!)
-                } else {
-                    self.view?.showNextPageButton(false)
-                    self.view?.resetButtons()
-                }
+				} else {
+					self.view?.showNextPageButton(false)
+					self.view?.resetButtons()
+				}
 				self.view?.animate(false)
 			})
 		}

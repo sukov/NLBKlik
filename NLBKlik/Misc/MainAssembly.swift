@@ -55,12 +55,12 @@ class MainAssembly {
 	}
 
 	// ReservedFunds
-	func getReservedFundsPresenter() -> ReservedFundsPresenter {
+	func getReservedFundsPresenter() -> TransactionsPresenter {
 		return ReservedFundsPresenterImp()
 	}
 
 	func getReservedFundsController() -> UIViewController {
-		return UINavigationController(rootViewController: ReservedFundsController(presenter: MainAssembly.sharedInstance.getReservedFundsPresenter()))
+		return UINavigationController(rootViewController: TransactionsController(presenter: MainAssembly.sharedInstance.getReservedFundsPresenter()))
 	}
 
 }

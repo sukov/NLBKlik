@@ -67,12 +67,6 @@ class TransactionsController: BaseViewController, TransactionsView, TransactionB
 		}
 	}
 
-	override func setupNavigationBar() {
-		super.setupNavigationBar()
-
-		navigationItem.title = "Transactions"
-	}
-
 	override func refresh() {
 		super.refresh()
 		navigationItem.rightBarButtonItem?.enabled = false
@@ -118,17 +112,20 @@ class TransactionsController: BaseViewController, TransactionsView, TransactionB
 	}
 
 	func showConnectionError() {
-		let alert = UIAlertController(title: "No internet connection available.", message: "Open Settings?", preferredStyle: UIAlertControllerStyle.Alert)
-		let openSettingsAction = UIAlertAction(title: "Settings", style: .Default) { (alert) in
-			UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=ROOT")!)
-			// prefs:root=General&path=Music
-		}
-		let defaultAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-		alert.addAction(openSettingsAction)
-		alert.addAction(defaultAction)
+		let iOSVerzion = NSProcessInfo().operatingSystemVersion.majorVersion
 
-		presentViewController(alert, animated: true, completion: nil)
-		resetButtons()
+		if (iOSVerzion <= 9) {
+			presentViewController(AlertFactory.connectionError(), animated: true, completion: nil)
+			self.resetButtons()
+		} else {
+			AlertFactory.connectionErrorIOS10 {
+				self.resetButtons()
+			}
+		}
+	}
+
+	func navigationBarTitle(name: String) {
+		navigationItem.title = name
 	}
 }
 
