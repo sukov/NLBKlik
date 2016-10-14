@@ -59,6 +59,7 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	func refresh() {
 		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
 			view?.showConnectionError()
+			view?.resetButtons()
 			return
 		}
 
@@ -85,6 +86,7 @@ class TransactionsPresenterImp: TransactionsPresenter {
 	func loadNextPage() {
 		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
 			view?.showConnectionError()
+			view?.resetButtons()
 			return
 		}
 

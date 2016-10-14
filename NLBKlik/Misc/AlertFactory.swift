@@ -24,14 +24,13 @@ class AlertFactory {
 		return alert
 	}
 
-	static func connectionErrorIOS10(complete: () -> Void) {
+	static func connectionErrorIOS10() {
 		if (!isLoginErrorPresented) {
 			isLoginErrorPresented = true
 			let notification = CWStatusBarNotification()
 			notification.notificationLabelTextColor = .whiteColor()
 			notification.notificationLabelBackgroundColor = .redColor()
 			notification.displayNotificationWithMessage("No internet connection", forDuration: 3.0, complete: {
-				complete()
 				isLoginErrorPresented = false
 			})
 		}

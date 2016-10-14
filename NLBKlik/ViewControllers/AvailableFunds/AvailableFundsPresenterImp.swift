@@ -37,6 +37,7 @@ class AvailableFundsPresenterImp: AvailableFundsPresenter {
 	func refresh() {
 		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
 			view?.showConnectionError()
+			view?.resetButtons()
 			return
 		}
 

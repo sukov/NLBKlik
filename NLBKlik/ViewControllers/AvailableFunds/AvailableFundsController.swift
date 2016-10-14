@@ -104,11 +104,8 @@ class AvailableFundsController: BaseViewController, AvailableFundsView {
 
 		if (iOSVerzion <= 9) {
 			presentViewController(AlertFactory.connectionError(), animated: true, completion: nil)
-			self.resetButtons()
 		} else {
-			AlertFactory.connectionErrorIOS10 {
-				self.resetButtons()
-			}
+			AlertFactory.connectionErrorIOS10()
 		}
 	}
 }

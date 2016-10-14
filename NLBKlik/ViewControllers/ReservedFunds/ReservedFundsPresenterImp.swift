@@ -58,6 +58,7 @@ class ReservedFundsPresenterImp: TransactionsPresenter {
 	func refresh() {
 		guard NetworkManager.sharedInstance.isConnectedToNetwork() else {
 			view?.showConnectionError()
+			view?.resetButtons()
 			return
 		}
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
@@ -84,6 +85,7 @@ class ReservedFundsPresenterImp: TransactionsPresenter {
 		currentPage += 1
 		guard NetworkManager.sharedInstance.checkIfSessionIsValid() else {
 			view?.showLoginScreen()
+			view?.resetButtons()
 			return
 		}
 		if (currentPage <= pageCount) {

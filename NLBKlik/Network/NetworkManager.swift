@@ -279,7 +279,6 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 			loadingFinnished?()
 			currentPage = .Uknown
 			nextPage = .LogIn
-			webView.reload()
 			return false
 		} else {
 			return true

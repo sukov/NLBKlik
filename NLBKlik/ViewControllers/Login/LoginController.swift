@@ -262,10 +262,7 @@ class LoginController: BaseViewController, LoginView {
 		if (iOSVerzion <= 9) {
 			presentViewController(AlertFactory.connectionError(), animated: true, completion: nil)
 		} else {
-			loginButton.userInteractionEnabled = false
-			AlertFactory.connectionErrorIOS10 {
-				self.loginButton.userInteractionEnabled = true
-			}
+			AlertFactory.connectionErrorIOS10()
 		}
 	}
 }
