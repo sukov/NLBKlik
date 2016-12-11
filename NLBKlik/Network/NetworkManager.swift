@@ -101,7 +101,7 @@ class NetworkManager: NSObject, UIWebViewDelegate {
 
 				var transaction: Bool = true
 				for i in 1..<accountsCount {
-					if (self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].className") == "group") {
+					if (self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].className") == "group" && self.executeJavaScriptFromString("(document.getElementById('orders')).getElementsByTagName('tr')[\(i)].innerHTML").customTrim().containsString("Платежни картички")) {
 						transaction = false
 					}
 
