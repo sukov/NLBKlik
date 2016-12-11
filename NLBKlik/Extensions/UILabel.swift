@@ -37,7 +37,7 @@ extension UILabel {
     }
     
     override public func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-        if action == #selector(NSObject.copy(_:)) {
+        if action == #selector(copy(_:)) {
             return true
         }
         return false

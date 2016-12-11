@@ -357,7 +357,7 @@
 				TargetAttributes = {
 					1F9CC04F1DA256BE0090071A = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = KFR638643H;
+						DevelopmentTeam = XNDT7KN56Q;
 					};
 				};
 			};
@@ -584,6 +584,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = XNDT7KN56Q;
 				INFOPLIST_FILE = NLBKlik/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shukov.NLBKlik;
@@ -604,6 +605,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = XNDT7KN56Q;
 				INFOPLIST_FILE = NLBKlik/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shukov.NLBKlik;
