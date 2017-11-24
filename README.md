@@ -1,7 +1,7 @@
 # NLBKlik
 
-[![Platform](https://img.shields.io/cocoapods/p/EFCountingLabel.svg?style=flat)]
-[![Swift](https://img.shields.io/badge/language-swift-orange.svg)]
+[![Platform](https://img.shields.io/cocoapods/p/EFCountingLabel.svg?style=flat)](#)
+[![Swift](https://img.shields.io/badge/language-swift-orange.svg)](#)
 [![MIT](https://img.shields.io/cocoapods/l/EFCountingLabel.svg?style=flat?style=flat)](https://github.com/sukov/NLBKlik/blob/master/LICENSE)
 
 ### NLBKlik WebView parsed fully native app
